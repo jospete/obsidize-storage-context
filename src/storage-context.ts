@@ -1,9 +1,14 @@
+import { StorageContextOptions } from './storage-context-options';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 
 export class StorageContext<T extends StorageTransportApiMask> implements StorageTransportApiMask {
 
+	public static absolutePrefixSeparator: string = '$';
+
 	constructor(
-		public readonly transport: T
+		public readonly transport: T,
+		public readonly options: StorageContextOptions,
+		private readonly parent: StorageContext<StorageTransportApiMask> | null = null
 	) {
 	}
 
@@ -35,10 +40,25 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 	}
 
 	public get absoluteKeyPrefix(): string {
-		return '';
+		return this.generateAbsolutePrefixPath();
 	}
 
-	public createSubContext(prefix: string, options?: any): StorageContext<StorageContext<T>> {
-		return new StorageContext(this);
+	public createSubContext(prefix: string, options?: Partial<StorageContextOptions>): StorageContext<StorageContext<T>> {
+		return new StorageContext(this, Object.assign({}, options, { prefix }), this);
+	}
+
+	private generateAbsolutePrefixPath(): string {
+
+		let stack: StorageContext<StorageTransportApiMask>[] = [];
+		let target: StorageContext<StorageTransportApiMask> | null = this;
+
+		while (target && !stack.includes(target)) {
+			stack.unshift(target);
+			target = target.parent;
+		}
+
+		return stack
+			.map(s => s.options.prefix)
+			.join(StorageContext.absolutePrefixSeparator);
 	}
 }
