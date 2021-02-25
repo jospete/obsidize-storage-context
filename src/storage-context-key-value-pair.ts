@@ -34,8 +34,9 @@ export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 		return new StorageContextEntity(this, options);
 	}
 
-	public clear(): Promise<void> {
-		return this.context.removeItem(this.key);
+	public async clear(): Promise<void> {
+		await this.context.removeItem(this.key);
+		this.mValue = '';
 	}
 
 	public apply(): Promise<void> {

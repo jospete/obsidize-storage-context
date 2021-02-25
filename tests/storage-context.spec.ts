@@ -1,6 +1,11 @@
 import { StorageContext } from '../src';
 import { MockStorageTransport } from './mock-storage-transport';
 
+interface DummyEntity {
+	test: boolean;
+	value: string;
+}
+
 describe('StorageContext', () => {
 
 	let transport: MockStorageTransport;
@@ -13,6 +18,17 @@ describe('StorageContext', () => {
 
 	beforeEach(() => {
 		createDefault();
+	});
+
+	it('has an option to clear all keys', async () => {
+		const targetKVP = baseContext.getKeyValuePair('testEntry');
+		await targetKVP.save('testValue');
+		expect(targetKVP.value).toBe('testValue');
+		await baseContext.clear();
+		const reloadedValue = await targetKVP.load();
+		expect(reloadedValue).not.toBeDefined();
+		await targetKVP.clear();
+		expect(targetKVP.value).toBe('');
 	});
 
 	describe('Key-Value Pair', () => {
@@ -47,11 +63,6 @@ describe('StorageContext', () => {
 
 		it('stores the array as an entity set', async () => {
 
-			interface DummyEntity {
-				test: boolean;
-				value: string;
-			}
-
 			const arrayContext = baseContext.getSubContext('tmpArray');
 			const entityArray = arrayContext.createEntityArray<DummyEntity>();
 			const existingValues = await entityArray.load();
@@ -66,6 +77,13 @@ describe('StorageContext', () => {
 			await entityArray.save(testValueArray);
 			const loadedValuesAfterSave = await entityArray.load();
 			expect(loadedValuesAfterSave).toEqual(testValueArray);
+			expect(entityArray.size).toBe(testValueArray.length);
+		});
+
+		it('can have a custom size attribute specified', () => {
+			const arrayContext = baseContext.getSubContext('tmpArray');
+			const entityArray = arrayContext.createEntitySet<DummyEntity>().toSerializedArray('countKey');
+			expect(entityArray.sizeEntity.entry.key).toBe('countKey');
 		});
 	});
 });
