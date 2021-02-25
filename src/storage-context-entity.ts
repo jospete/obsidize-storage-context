@@ -27,6 +27,10 @@ export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 		return this.entry.clear();
 	}
 
+	public apply(): Promise<void> {
+		return this.entry.apply();
+	}
+
 	public save(value: V): Promise<void> {
 		return this.entry.save(this.serializer.serialize(value));
 	}

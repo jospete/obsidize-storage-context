@@ -2,6 +2,7 @@ import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { StorageContextOptions } from './storage-context-options';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
+import { findOrCreateMapEntry } from './find-or-create-map-entry';
 
 /**
  * Represents an isolated context for key/value pairs and entities.
@@ -15,6 +16,9 @@ import { StorageTransportApiMask } from './storage-transport-api-mask';
 export class StorageContext<T extends StorageTransportApiMask> implements StorageTransportApiMask {
 
 	public static absolutePrefixSeparator: string = '$';
+
+	private readonly mSubContexts: Map<string, StorageContext<StorageContext<T>>> = new Map();
+	private readonly mKeyValuePairs: Map<string, StorageContextKeyValuePair<StorageContext<T>>> = new Map();
 
 	constructor(
 		public readonly transport: T,
@@ -54,12 +58,12 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return this.generateAbsolutePrefixPath();
 	}
 
-	public createSubContext(prefix: string, options: Partial<StorageContextOptions> = {}): StorageContext<StorageContext<T>> {
-		return new StorageContext(this, Object.assign({}, options, { prefix }), this);
+	public getSubContext(prefix: string, options: Partial<StorageContextOptions> = {}): StorageContext<StorageContext<T>> {
+		return findOrCreateMapEntry(this.mSubContexts, prefix, () => new StorageContext(this, Object.assign({}, options, { prefix }), this));
 	}
 
 	public getKeyValuePair(key: string): StorageContextKeyValuePair<StorageContext<T>> {
-		return new StorageContextKeyValuePair(this, key);
+		return findOrCreateMapEntry(this.mKeyValuePairs, key, () => new StorageContextKeyValuePair(this, key));
 	}
 
 	public getEntity<V>(key: string): StorageContextEntity<V, StorageContext<T>> {

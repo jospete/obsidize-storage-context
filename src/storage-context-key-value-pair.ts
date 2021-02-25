@@ -24,6 +24,14 @@ export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 		return new StorageContextEntity(this, options);
 	}
 
+	public clear(): Promise<void> {
+		return this.transport.removeItem(this.key);
+	}
+
+	public apply(): Promise<void> {
+		return this.save(this.value);
+	}
+
 	public save(update: string): Promise<void> {
 		this.mValue = update;
 		return this.transport.setItem(this.key, this.value);
@@ -32,9 +40,5 @@ export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 	public async load(): Promise<string> {
 		this.mValue = await this.transport.getItem(this.key);
 		return this.value;
-	}
-
-	public clear(): Promise<void> {
-		return this.transport.removeItem(this.key);
 	}
 }

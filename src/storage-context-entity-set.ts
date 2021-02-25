@@ -1,3 +1,4 @@
+import { findOrCreateMapEntry } from './find-or-create-map-entry';
 import { StorageContext } from './storage-context';
 import { StorageContextEntity } from './storage-context-entity';
 import { getDefaultStorageContextEntityOptions, StorageContextEntityOptions } from './storage-context-entity-options';
@@ -5,7 +6,7 @@ import { StorageTransportApiMask } from './storage-transport-api-mask';
 
 export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
 
-	public readonly entries: Map<string, StorageContextEntity<V, StorageContext<T>>> = new Map();
+	public readonly entityMap: Map<string, StorageContextEntity<V, StorageContext<T>>> = new Map();
 
 	constructor(
 		public readonly context: StorageContext<T>,
@@ -14,15 +15,26 @@ export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
 	}
 
 	public getEntity(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, StorageContext<T>> {
+		return findOrCreateMapEntry(this.entityMap, key, () => this.context.getKeyValuePair(key).asEntity<V>(options));
+	}
 
-		let entity = this.entries.get(key);
+	public keys(): string[] {
+		return Array.from(this.entityMap.keys());
+	}
 
-		if (!entity) {
-			options = options || this.sharedOptions;
-			entity = this.context.getKeyValuePair(key).asEntity<V>(options);
-			this.entries.set(key, entity);
-		}
+	public values(): V[] {
+		return this.entitySet().map(entity => entity.value);
+	}
 
-		return entity;
+	public entitySet(): StorageContextEntity<V, StorageContext<T>>[] {
+		return Array.from(this.entityMap.values());
+	}
+
+	public load(): Promise<V[]> {
+		return Promise.all(this.entitySet().map(entity => entity.load()));
+	}
+
+	public async save(): Promise<void> {
+		await Promise.all(this.entitySet().map(entity => entity.entry.apply()));
 	}
 }
