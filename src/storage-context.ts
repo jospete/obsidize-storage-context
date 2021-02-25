@@ -26,7 +26,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 	public static absolutePrefixSeparator: string = '$';
 
 	private readonly mSubContexts: Map<string, StorageContext<StorageContext<T>>> = new Map();
-	private readonly mKeyValuePairs: Map<string, StorageContextKeyValuePair<StorageContext<T>>> = new Map();
+	private readonly mKeyValuePairs: Map<string, StorageContextKeyValuePair<T>> = new Map();
 
 	constructor(
 		public readonly transport: T,
@@ -70,11 +70,11 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return findOrCreateMapEntry(this.mSubContexts, prefix, () => new StorageContext(this, Object.assign({}, options, { prefix }), this));
 	}
 
-	public getKeyValuePair(key: string): StorageContextKeyValuePair<StorageContext<T>> {
+	public getKeyValuePair(key: string): StorageContextKeyValuePair<T> {
 		return findOrCreateMapEntry(this.mKeyValuePairs, key, () => new StorageContextKeyValuePair(this, key));
 	}
 
-	public getEntity<V>(key: string): StorageContextEntity<V, StorageContext<T>> {
+	public getEntity<V>(key: string): StorageContextEntity<V, T> {
 		return this.getKeyValuePair(key).asEntity<V>();
 	}
 

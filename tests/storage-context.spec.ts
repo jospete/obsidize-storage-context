@@ -17,7 +17,7 @@ describe('StorageContext', () => {
 
 	describe('Key-Value Pairs', () => {
 
-		it('uses the underlying transport to make storage changes', () => {
+		it('uses the underlying transport to make storage changes', async () => {
 
 			spyOn(transport, 'setItem').and.callThrough();
 
@@ -26,6 +26,16 @@ describe('StorageContext', () => {
 
 			const kvp = ctx.getKeyValuePair('item');
 			expect(kvp.key).toBe(['testContext', 'item'].join(StorageContext.absolutePrefixSeparator));
+
+			const currentValue = await kvp.load();
+			expect(currentValue).toBe('');
+
+			await kvp.save('dummy_value');
+			const updateValue = kvp.value;
+			expect(updateValue).toBe('dummy_value');
+
+			const reloadedValue = await kvp.load();
+			expect(reloadedValue).toBe(updateValue);
 		});
 	});
 });

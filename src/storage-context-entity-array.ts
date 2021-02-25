@@ -26,7 +26,7 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		return this.sizeEntity.value;
 	}
 
-	public getEntityByIndex(index: number): StorageContextEntity<V, StorageContext<T>> {
+	public getEntityByIndex(index: number): StorageContextEntity<V, T> {
 		return this.entitySet.getEntity(index + '');
 	}
 
