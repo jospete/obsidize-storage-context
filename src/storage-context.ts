@@ -1,5 +1,5 @@
 import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
-import { StorageContextOptions } from './storage-context-options';
+import { getDefaultStorageContextOptions, StorageContextOptions } from './storage-context-options';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 import { findOrCreateMapEntry } from './find-or-create-map-entry';
@@ -30,7 +30,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 
 	constructor(
 		public readonly transport: T,
-		public readonly options: StorageContextOptions,
+		public readonly options: StorageContextOptions = getDefaultStorageContextOptions(),
 		private readonly parent: StorageContext<StorageTransportApiMask> | null = null
 	) {
 	}
