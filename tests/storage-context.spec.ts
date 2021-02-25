@@ -25,10 +25,14 @@ describe('StorageContext', () => {
 			expect(ctx.options.prefix).toBe('testContext');
 
 			const kvp = ctx.getKeyValuePair('item');
-			expect(kvp.key).toBe(['testContext', 'item'].join(StorageContext.absolutePrefixSeparator));
+			expect(kvp.absoluteKey).toBe([
+				baseContext.options.prefix,
+				ctx.options.prefix,
+				'item'
+			].join(StorageContext.absolutePrefixSeparator));
 
 			const currentValue = await kvp.load();
-			expect(currentValue).toBe('');
+			expect(currentValue).not.toBeDefined();
 
 			await kvp.save('dummy_value');
 			const updateValue = kvp.value;

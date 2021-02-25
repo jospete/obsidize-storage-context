@@ -59,7 +59,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 	}
 
 	public getAbsoluteKey(relativeKey: string): string {
-		return this.absoluteKeyPrefix + relativeKey;
+		return this.absoluteKeyPrefix + StorageContext.absolutePrefixSeparator + relativeKey;
 	}
 
 	public get absoluteKeyPrefix(): string {

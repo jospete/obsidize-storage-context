@@ -22,6 +22,10 @@ export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 	) {
 	}
 
+	public get absoluteKey(): string {
+		return this.context.getAbsoluteKey(this.key);
+	}
+
 	public get value(): string {
 		return this.mValue;
 	}
