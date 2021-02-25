@@ -86,4 +86,26 @@ describe('StorageContext', () => {
 			expect(entityArray.sizeEntity.entry.key).toBe('countKey');
 		});
 	});
+
+	describe('Sub-Context', () => {
+
+		it('has an isolated set of keys', async () => {
+
+			const subContext = baseContext.getSubContext('tmpContext');
+			const kvp1 = subContext.getKeyValuePair('t1');
+			const kvp2 = subContext.getKeyValuePair('t2');
+			const kvp3 = baseContext.getKeyValuePair('t3');
+
+			await kvp1.save('test');
+			await kvp2.save('test');
+			await kvp3.save('test');
+
+			const expectedSubKeys = [kvp1.absoluteKey, kvp2.absoluteKey];
+			const subKeys = await subContext.keys();
+			expect(subKeys).toEqual(expectedSubKeys);
+
+			await kvp3.clear();
+			expect(subKeys).toEqual(expectedSubKeys);
+		});
+	});
 });
