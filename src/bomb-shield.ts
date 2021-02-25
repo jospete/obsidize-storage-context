@@ -1,5 +1,5 @@
 /**
- * Simple utility for preventing error explosions.
+ * Simple utility for preventing Error explosions.
  */
 export const bombShield = <T>(action: () => T, fallbackValue?: T): T => {
 	try {

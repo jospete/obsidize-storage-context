@@ -3,6 +3,15 @@ import { StorageContextOptions } from './storage-context-options';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 
+/**
+ * Represents an isolated context for key/value pairs and entities.
+ * Here, a "context" is essentially type-enforced namespace for keys.
+ * 
+ * So a context with a prefix of "myFeatureStorage" would have keys like
+ * - "myFeatureStorage$itemCount"
+ * - "myFeatureStorage$someSubContext$item42"
+ * - "myFeatureStorage$someSubContext$entityMap$length"
+ */
 export class StorageContext<T extends StorageTransportApiMask> implements StorageTransportApiMask {
 
 	public static absolutePrefixSeparator: string = '$';

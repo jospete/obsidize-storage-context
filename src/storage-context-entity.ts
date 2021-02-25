@@ -3,6 +3,10 @@ import { StorageTransportApiMask } from './storage-transport-api-mask';
 import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { SerializationDuplex } from './serialization-duplex';
 
+/**
+ * Represents a complex (probably JSON) entity that 
+ * can be serialized to and deserialized from a string.
+ */
 export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 
 	constructor(

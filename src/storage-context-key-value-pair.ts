@@ -2,6 +2,10 @@ import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 
+/**
+ * Represents a single key/value pair for a target context/transport.
+ * This eliminates the need for manual key string referencing for each of the standard transport methods.
+ */
 export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 
 	private mValue: string = '';
