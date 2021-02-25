@@ -56,6 +56,16 @@ describe('StorageContext', () => {
 			const entityArray = arrayContext.createEntityArray<DummyEntity>();
 			const existingValues = await entityArray.load();
 			expect(existingValues).toEqual([]);
+
+			const testValueArray: DummyEntity[] = [
+				{ test: true, value: 'onety' },
+				{ test: false, value: 'twoty' },
+				{ test: true, value: 'threetee' },
+			];
+
+			await entityArray.save(testValueArray);
+			const loadedValuesAfterSave = await entityArray.load();
+			expect(loadedValuesAfterSave).toEqual(testValueArray);
 		});
 	});
 });
