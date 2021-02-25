@@ -98,6 +98,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 
 		return stack
 			.map(s => s.options.prefix)
+			.filter(v => v)
 			.join(StorageContext.absolutePrefixSeparator);
 	}
 }

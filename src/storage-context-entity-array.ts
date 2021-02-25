@@ -25,7 +25,7 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		return this.sizeEntity.value;
 	}
 
-	public getEntityByIndex(index: number): StorageContextEntity<V, T> {
+	public get(index: number): StorageContextEntity<V, T> {
 		return this.entitySet.getEntity(index + '');
 	}
 
@@ -35,7 +35,7 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		const result: V[] = [];
 
 		for (let i = 0; i < size; i++) {
-			result[i] = await this.getEntityByIndex(i).load();
+			result[i] = await this.get(i).load();
 		}
 
 		return result;
@@ -48,7 +48,7 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		await this.sizeEntity.save(targetLength);
 
 		for (let i = 0; i < targetLength; i++) {
-			await this.getEntityByIndex(i).save(safeValues[i]);
+			await this.get(i).save(safeValues[i]);
 		}
 	}
 }

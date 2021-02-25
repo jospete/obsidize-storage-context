@@ -1,4 +1,5 @@
 export { bombShield } from './bomb-shield';
+export { BrowserStorageTransport } from './browser-storage-transport';
 export { SerializationDuplex, getJSONSerializationDuplex } from './serialization-duplex';
 export { StorageContextEntityOptions, getDefaultStorageContextEntityOptions } from './storage-context-entity-options';
 export { StorageContextEntitySet, SerializedEntitySet } from './storage-context-entity-set';
