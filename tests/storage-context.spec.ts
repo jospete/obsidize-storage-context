@@ -15,7 +15,7 @@ describe('StorageContext', () => {
 		createDefault();
 	});
 
-	describe('Key-Value Pairs', () => {
+	describe('Key-Value Pair', () => {
 
 		it('uses the underlying transport to make storage changes', async () => {
 
@@ -40,6 +40,22 @@ describe('StorageContext', () => {
 
 			const reloadedValue = await kvp.load();
 			expect(reloadedValue).toBe(updateValue);
+		});
+	});
+
+	describe('Entity Array', () => {
+
+		it('stores the array as an entity set', async () => {
+
+			interface DummyEntity {
+				test: boolean;
+				value: string;
+			}
+
+			const arrayContext = baseContext.getSubContext('tmpArray');
+			const entityArray = arrayContext.createEntityArray<DummyEntity>();
+			const existingValues = await entityArray.load();
+			expect(existingValues).toEqual([]);
 		});
 	});
 });
