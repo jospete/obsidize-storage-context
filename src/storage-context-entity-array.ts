@@ -1,4 +1,3 @@
-import { StorageContext } from './storage-context';
 import { SerializedEntity, StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntitySet } from './storage-context-entity-set';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
