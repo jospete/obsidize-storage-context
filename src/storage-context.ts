@@ -1,4 +1,6 @@
+import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { StorageContextOptions } from './storage-context-options';
+import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 
 export class StorageContext<T extends StorageTransportApiMask> implements StorageTransportApiMask {
@@ -43,8 +45,16 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return this.generateAbsolutePrefixPath();
 	}
 
-	public createSubContext(prefix: string, options?: Partial<StorageContextOptions>): StorageContext<StorageContext<T>> {
+	public createSubContext(prefix: string, options: Partial<StorageContextOptions> = {}): StorageContext<StorageContext<T>> {
 		return new StorageContext(this, Object.assign({}, options, { prefix }), this);
+	}
+
+	public getKeyValuePair(key: string): StorageContextKeyValuePair<StorageContext<T>> {
+		return new StorageContextKeyValuePair(this, key);
+	}
+
+	public getEntity<V>(key: string): StorageContextEntity<V, StorageContext<T>> {
+		return this.getKeyValuePair(key).asEntity<V>();
 	}
 
 	private generateAbsolutePrefixPath(): string {

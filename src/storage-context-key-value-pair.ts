@@ -1,6 +1,8 @@
+import { StorageContextEntity } from './storage-context-entity';
+import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 
-export class StorageContextEntry<T extends StorageTransportApiMask> {
+export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 
 	private mValue: string = '';
 
@@ -12,6 +14,10 @@ export class StorageContextEntry<T extends StorageTransportApiMask> {
 
 	public get value(): string {
 		return this.mValue;
+	}
+
+	public asEntity<V>(options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
+		return new StorageContextEntity(this, options);
 	}
 
 	public save(update: string): Promise<void> {
