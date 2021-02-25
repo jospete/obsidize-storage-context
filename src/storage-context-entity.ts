@@ -4,6 +4,11 @@ import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { SerializationDuplex } from './serialization-duplex';
 
 /**
+ * Simplified type for generic use-cases.
+ */
+export type SerializedEntity<V> = StorageContextEntity<V, StorageTransportApiMask>;
+
+/**
  * Represents a complex (probably JSON) entity that 
  * can be serialized to and deserialized from a string.
  */

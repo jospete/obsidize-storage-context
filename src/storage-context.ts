@@ -3,6 +3,14 @@ import { StorageContextOptions } from './storage-context-options';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 import { findOrCreateMapEntry } from './find-or-create-map-entry';
+import { StorageContextEntitySet } from './storage-context-entity-set';
+import { StorageContextEntityOptions } from './storage-context-entity-options';
+import { StorageContextEntityArray } from './storage-context-entity-array';
+
+/**
+ * Simplified type for generic use-cases.
+ */
+export type SerializationContext = StorageContext<StorageTransportApiMask>;
 
 /**
  * Represents an isolated context for key/value pairs and entities.
@@ -68,6 +76,14 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 
 	public getEntity<V>(key: string): StorageContextEntity<V, StorageContext<T>> {
 		return this.getKeyValuePair(key).asEntity<V>();
+	}
+
+	public createEntitySet<V>(sharedOptions?: StorageContextEntityOptions<V>): StorageContextEntitySet<V, T> {
+		return new StorageContextEntitySet(this, sharedOptions);
+	}
+
+	public createEntityArray<V>(sharedOptions?: StorageContextEntityOptions<V>, sizeKey?: string): StorageContextEntityArray<V, T> {
+		return this.createEntitySet<V>(sharedOptions).toSerializedArray(sizeKey);
 	}
 
 	private generateAbsolutePrefixPath(): string {
