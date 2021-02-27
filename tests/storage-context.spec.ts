@@ -108,4 +108,11 @@ describe('StorageContext', () => {
 			expect(subKeys).toEqual(expectedSubKeys);
 		});
 	});
+
+	describe('General Usage', async () => {
+
+		const featureSetACtx = baseContext.getSubContext('featureSetA');
+		const aIsInitializedEntity = featureSetACtx.getEntity<boolean>('isInitialized');
+		const aIsInitialized = await aIsInitializedEntity.load(false);
+	});
 });

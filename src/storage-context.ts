@@ -1,11 +1,13 @@
+import { StorageContextUtility } from './storage-context-utility';
 import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { getDefaultStorageContextOptions, StorageContextOptions } from './storage-context-options';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
-import { findOrCreateMapEntry } from './find-or-create-map-entry';
 import { StorageContextEntitySet } from './storage-context-entity-set';
 import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageContextEntityArray } from './storage-context-entity-array';
+
+const { findOrCreateMapEntry, toArray } = StorageContextUtility;
 
 /**
  * Simplified type for generic use-cases.
@@ -54,12 +56,12 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 	public async keys(): Promise<string[]> {
 		const keys = await this.transport.keys();
 		const prefix = this.absoluteKeyPrefix;
-		const sanitizedKeys: string[] = [].slice.call(keys);
-		return sanitizedKeys.filter(k => k && k.startsWith(prefix));
+		const sanitizedKeys: string[] = toArray(keys);
+		return sanitizedKeys.filter(k => (k + '').startsWith(prefix));
 	}
 
 	public getAbsoluteKey(relativeKey: string): string {
-		return this.absoluteKeyPrefix + StorageContext.absolutePrefixSeparator + relativeKey;
+		return this.createCombinedKey([this.absoluteKeyPrefix, relativeKey]);
 	}
 
 	public get absoluteKeyPrefix(): string {
@@ -74,8 +76,8 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return findOrCreateMapEntry(this.mKeyValuePairs, key, () => new StorageContextKeyValuePair(this, key));
 	}
 
-	public getEntity<V>(key: string): StorageContextEntity<V, T> {
-		return this.getKeyValuePair(key).asEntity<V>();
+	public getEntity<V>(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
+		return this.getKeyValuePair(key).asEntity<V>(options);
 	}
 
 	public createEntitySet<V>(sharedOptions?: StorageContextEntityOptions<V>): StorageContextEntitySet<V, T> {
@@ -84,6 +86,12 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 
 	public createEntityArray<V>(sharedOptions?: StorageContextEntityOptions<V>, sizeKey?: string): StorageContextEntityArray<V, T> {
 		return this.createEntitySet<V>(sharedOptions).toSerializedArray(sizeKey);
+	}
+
+	private createCombinedKey(parts: string[]): string {
+		return toArray(parts)
+			.filter(v => v)
+			.join(StorageContext.absolutePrefixSeparator);
 	}
 
 	private generateAbsolutePrefixPath(): string {
@@ -96,9 +104,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 			target = target.parent;
 		}
 
-		return stack
-			.map(s => s.options.prefix)
-			.filter(v => v)
-			.join(StorageContext.absolutePrefixSeparator);
+		const keyParts = stack.map(s => s.options.prefix);
+		return this.createCombinedKey(keyParts);
 	}
 }

@@ -21,27 +21,23 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		this.sizeEntity = this.entitySet.context.getEntity<number>(sizeKey);
 	}
 
-	public get size(): number {
-		return this.sizeEntity.value;
-	}
-
 	public get(index: number): StorageContextEntity<V, T> {
 		return this.entitySet.getEntity(index + '');
 	}
 
-	public async load(): Promise<V[]> {
+	public async load(defaultValue?: V): Promise<V[]> {
 
-		const size = await this.sizeEntity.load();
+		const size = await this.sizeEntity.load(0);
 		const result: V[] = [];
 
 		for (let i = 0; i < size; i++) {
-			result[i] = await this.get(i).load();
+			result[i] = await this.get(i).load(defaultValue);
 		}
 
 		return result;
 	}
 
-	public async save(values: V[]): Promise<void> {
+	public async save(values: V[]): Promise<V[]> {
 
 		const safeValues: V[] = [].slice.call(values);
 		const targetLength = safeValues.length;
@@ -50,5 +46,7 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		for (let i = 0; i < targetLength; i++) {
 			await this.get(i).save(safeValues[i]);
 		}
+
+		return safeValues;
 	}
 }

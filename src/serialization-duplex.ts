@@ -1,11 +1,13 @@
-import { bombShield } from './bomb-shield';
+import { StorageContextUtility } from './storage-context-utility';
+
+const { bombShield } = StorageContextUtility;
 
 /**
  * 2-way transformation definition used by pipe constructs.
  */
 export interface SerializationDuplex<T> {
 	serialize(value: T): string;
-	deserialize(data: string): T;
+	deserialize(data: string, fallback?: T): T;
 }
 
 /**

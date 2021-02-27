@@ -1,9 +1,11 @@
-import { findOrCreateMapEntry } from './find-or-create-map-entry';
+import { StorageContextUtility } from './storage-context-utility';
 import { StorageContext } from './storage-context';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityArray } from './storage-context-entity-array';
 import { getDefaultStorageContextEntityOptions, StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
+
+const { findOrCreateMapEntry } = StorageContextUtility;
 
 /**
  * Simplified type for generic use-cases.
@@ -29,10 +31,6 @@ export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
 
 	public keys(): string[] {
 		return Array.from(this.entityMap.keys());
-	}
-
-	public values(): V[] {
-		return this.entitySet().map(entity => entity.value);
 	}
 
 	public entitySet(): StorageContextEntity<V, T>[] {

@@ -24,10 +24,6 @@ export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 		return this.options.serializer;
 	}
 
-	public get value(): V {
-		return this.serializer.deserialize(this.entry.value);
-	}
-
 	public clear(): Promise<void> {
 		return this.entry.clear();
 	}
@@ -40,8 +36,8 @@ export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 		return this.entry.save(this.serializer.serialize(value));
 	}
 
-	public async load(): Promise<V> {
+	public async load(defaultValue?: V): Promise<V> {
 		await this.entry.load();
-		return this.value;
+		return this.serializer.deserialize(this.entry.value, defaultValue);
 	}
 }
