@@ -9,24 +9,25 @@ interface DummyEntity {
 describe('StorageContext', () => {
 
 	let transport: MockStorageTransport;
-	let baseContext: StorageContext<MockStorageTransport>;
+	let globalBaseContext: StorageContext<MockStorageTransport>;
 
 	const createDefault = () => {
 		transport = new MockStorageTransport();
-		baseContext = new StorageContext(transport);
+		globalBaseContext = new StorageContext(transport);
+		return globalBaseContext;
 	};
 
-	beforeEach(() => {
-		createDefault();
-	});
-
 	it('has an option to clear all keys', async () => {
+
+		const baseContext = createDefault();
 		const targetKVP = baseContext.getKeyValuePair('testEntry');
 		await targetKVP.save('testValue');
 		expect(targetKVP.value).toBe('testValue');
+
 		await baseContext.clear();
 		const reloadedValue = await targetKVP.load();
 		expect(reloadedValue).not.toBeDefined();
+
 		await targetKVP.clear();
 		expect(targetKVP.value).toBe('');
 	});
@@ -37,12 +38,12 @@ describe('StorageContext', () => {
 
 			spyOn(transport, 'setItem').and.callThrough();
 
+			const baseContext = createDefault();
 			const ctx = baseContext.getSubContext('testContext');
 			expect(ctx.options.prefix).toBe('testContext');
 
 			const kvp = ctx.getKeyValuePair('item');
 			expect(kvp.absoluteKey).toBe([
-				baseContext.options.prefix,
 				ctx.options.prefix,
 				'item'
 			].join(StorageContext.absolutePrefixSeparator));
@@ -63,6 +64,7 @@ describe('StorageContext', () => {
 
 		it('stores the array as an entity set', async () => {
 
+			const baseContext = createDefault();
 			const arrayContext = baseContext.getSubContext('tmpArray');
 			const entityArray = arrayContext.createEntityArray<DummyEntity>();
 			const existingValues = await entityArray.load();
@@ -77,10 +79,10 @@ describe('StorageContext', () => {
 			await entityArray.save(testValueArray);
 			const loadedValuesAfterSave = await entityArray.load();
 			expect(loadedValuesAfterSave).toEqual(testValueArray);
-			expect(entityArray.size).toBe(testValueArray.length);
 		});
 
 		it('can have a custom size attribute specified', () => {
+			const baseContext = createDefault();
 			const arrayContext = baseContext.getSubContext('tmpArray');
 			const entityArray = arrayContext.createEntitySet<DummyEntity>().toSerializedArray('countKey');
 			expect(entityArray.sizeEntity.entry.key).toBe('countKey');
@@ -91,6 +93,7 @@ describe('StorageContext', () => {
 
 		it('has an isolated set of keys', async () => {
 
+			const baseContext = createDefault();
 			const subContext = baseContext.getSubContext('tmpContext');
 			const kvp1 = subContext.getKeyValuePair('t1');
 			const kvp2 = subContext.getKeyValuePair('t2');
@@ -111,8 +114,14 @@ describe('StorageContext', () => {
 
 	describe('General Usage', async () => {
 
+		const baseContext = createDefault();
 		const featureSetACtx = baseContext.getSubContext('featureSetA');
 		const aIsInitializedEntity = featureSetACtx.getEntity<boolean>('isInitialized');
 		const aIsInitialized = await aIsInitializedEntity.load(false);
+		expect(aIsInitialized).toBe(false);
+
+		await aIsInitializedEntity.save(true);
+		const updatedInitValue = await aIsInitializedEntity.load();
+		expect(updatedInitValue).toBe(true);
 	});
 });

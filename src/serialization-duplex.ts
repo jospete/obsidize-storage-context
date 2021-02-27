@@ -1,6 +1,6 @@
 import { StorageContextUtility } from './storage-context-utility';
 
-const { bombShield } = StorageContextUtility;
+const { bombShield, optDefined } = StorageContextUtility;
 
 /**
  * 2-way transformation definition used by pipe constructs.
@@ -15,7 +15,7 @@ export interface SerializationDuplex<T> {
  */
 export const getJSONSerializationDuplex = <T>(): SerializationDuplex<T> => {
 	return {
-		serialize: value => bombShield(() => JSON.stringify(value), (value + '')),
-		deserialize: data => bombShield(() => JSON.parse(data), data)
+		serialize: (value: T) => bombShield(() => JSON.stringify(value), (value + '')),
+		deserialize: (data: string, fallback?: T) => bombShield(() => JSON.parse(data), optDefined(fallback, data as any))
 	};
 };
