@@ -1,25 +1,11 @@
 import { StorageContext } from '../src';
-import { MockStorageTransport } from './mock-storage-transport';
-
-interface DummyEntity {
-	test: boolean;
-	value: string;
-}
+import { MockStorageBaseContext } from './mock-storage-base-context';
 
 describe('StorageContext', () => {
 
-	let transport: MockStorageTransport;
-	let globalBaseContext: StorageContext<MockStorageTransport>;
-
-	const createDefault = () => {
-		transport = new MockStorageTransport();
-		globalBaseContext = new StorageContext(transport);
-		return globalBaseContext;
-	};
-
 	it('has an option to clear all keys', async () => {
 
-		const baseContext = createDefault();
+		const baseContext = new MockStorageBaseContext();
 		const targetKVP = baseContext.getKeyValuePair('testEntry');
 		await targetKVP.save('testValue');
 		const targetKVPValue = await targetKVP.load();
@@ -38,9 +24,10 @@ describe('StorageContext', () => {
 
 		it('uses the underlying transport to make storage changes', async () => {
 
+			const baseContext = new MockStorageBaseContext();
+			const transport = baseContext.mockTransport;
 			spyOn(transport, 'setItem').and.callThrough();
 
-			const baseContext = createDefault();
 			const ctx = baseContext.getSubContext('testContext');
 			expect(ctx.options.prefix).toBe('testContext');
 
@@ -64,9 +51,14 @@ describe('StorageContext', () => {
 
 	describe('Entity Array', () => {
 
+		interface DummyEntity {
+			test: boolean;
+			value: string;
+		}
+
 		it('stores the array as an entity set', async () => {
 
-			const baseContext = createDefault();
+			const baseContext = new MockStorageBaseContext();
 			const arrayContext = baseContext.getSubContext('tmpArray');
 			const entityArray = arrayContext.createEntityArray<DummyEntity>();
 			const existingValues = await entityArray.load();
@@ -84,7 +76,7 @@ describe('StorageContext', () => {
 		});
 
 		it('can have a custom size attribute specified', () => {
-			const baseContext = createDefault();
+			const baseContext = new MockStorageBaseContext();
 			const arrayContext = baseContext.getSubContext('tmpArray');
 			const entityArray = arrayContext.createEntityMap<DummyEntity>().toSerializedArray('countKey');
 			expect(entityArray.sizeEntity.keyValuePair.key).toBe('countKey');
@@ -95,7 +87,7 @@ describe('StorageContext', () => {
 
 		it('has an isolated set of keys', async () => {
 
-			const baseContext = createDefault();
+			const baseContext = new MockStorageBaseContext();
 			const subContext = baseContext.getSubContext('tmpContext');
 			const kvp1 = subContext.getKeyValuePair('t1');
 			const kvp2 = subContext.getKeyValuePair('t2');
@@ -124,7 +116,8 @@ describe('StorageContext', () => {
 				enabled: boolean;
 			}
 
-			const baseContext = createDefault();
+			const baseContext = new MockStorageBaseContext();
+			const transport = baseContext.mockTransport;
 			const featureSetACtx = baseContext.getSubContext('featureSetA');
 			const aIsInitializedEntity = featureSetACtx.createEntity<boolean>('isInitialized');
 			const aIsInitialized = await aIsInitializedEntity.load(false);
@@ -148,21 +141,27 @@ describe('StorageContext', () => {
 			const aSerializedArray_LoadResult = await aSerializedArray.load();
 			expect(aSerializedArray_LoadResult).toEqual(sample_aArray);
 
-			const entityMapValues = await aSerializedArray.entitySet.reloadAllValues();
+			const entityMapValues = await aSerializedArray.entityMap.reloadAllValues();
 			expect(entityMapValues).toEqual(sample_aArray);
 
-			const serializedSingleKey = aSerializedArray.get(1).keyValuePair.absoluteKey;
-			const serializedSingleValue = JSON.stringify(sample_aArray[1]);
+			const dataDump: any = transport.mockStorage.toJSON();
+			expect(dataDump).toEqual({
+				featureSetA$isInitialized: 'true',
+				featureSetA$serializedItems$length: '3',
+				featureSetA$serializedItems$0: '{"id":0,"name":"test_0","enabled":true}',
+				featureSetA$serializedItems$1: '{"id":1,"name":"test_1","enabled":false}',
+				featureSetA$serializedItems$2: '{"id":2,"name":"test_2","enabled":true}'
+			});
 
-			expect(serializedSingleKey).toBe('featureSetA$serializedItems$1');
-			const storedRawValue = await baseContext.transport.getItem('1');
-			// expect(storedRawValue).toBe(serializedSingleValue);
-
-			expect(aSerializedArray.entitySet.entries().map(e => e.keyValuePair.absoluteKey)).toEqual([
+			expect(aSerializedArray.entityMap.entries().map(e => e.keyValuePair.absoluteKey)).toEqual([
 				'featureSetA$serializedItems$0',
 				'featureSetA$serializedItems$1',
 				'featureSetA$serializedItems$2'
 			]);
+
+			await aSerializedArray.sizeEntity.clear();
+			const aSerializedArray_AfterSizeClear = await aSerializedArray.load([]);
+			expect(aSerializedArray_AfterSizeClear).toEqual([]);
 
 			await aSerializedArray.clear();
 			const updatedSizeValue = await aSerializedArray.sizeEntity.load();

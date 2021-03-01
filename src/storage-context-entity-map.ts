@@ -17,7 +17,7 @@ export type SerializedEntitySet<V> = StorageContextEntityMap<V, StorageTransport
  */
 export class StorageContextEntityMap<V, T extends StorageTransportApiMask> {
 
-	public readonly entityMap: Map<string, StorageContextEntity<V, T>> = new Map();
+	public readonly content: Map<string, StorageContextEntity<V, T>> = new Map();
 
 	constructor(
 		public readonly context: StorageContext<T>,
@@ -26,11 +26,11 @@ export class StorageContextEntityMap<V, T extends StorageTransportApiMask> {
 	}
 
 	public getEntity(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
-		return findOrCreateMapEntry(this.entityMap, key, () => this.context.createEntity<V>(key, options));
+		return findOrCreateMapEntry(this.content, key, () => this.context.createEntity<V>(key, options));
 	}
 
 	public entries(): StorageContextEntity<V, T>[] {
-		return Array.from(this.entityMap.values());
+		return Array.from(this.content.values());
 	}
 
 	public toSerializedArray(sizeKey?: string): StorageContextEntityArray<V, T> {

@@ -4,7 +4,7 @@ import { getJSONSerializationDuplex, SerializationDuplex } from './serialization
  * Customization options that can be given to any entity instance.
  */
 export interface StorageContextEntityOptions<V> {
-	serializer: SerializationDuplex<V>;
+	readonly serializer: SerializationDuplex<V>;
 }
 
 /**

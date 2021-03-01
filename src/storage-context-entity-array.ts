@@ -15,14 +15,14 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 	public readonly sizeEntity: SerializedEntity<number>;
 
 	constructor(
-		public readonly entitySet: StorageContextEntityMap<V, T>,
+		public readonly entityMap: StorageContextEntityMap<V, T>,
 		sizeKey: string = 'length'
 	) {
-		this.sizeEntity = this.entitySet.context.createEntity<number>(sizeKey);
+		this.sizeEntity = this.entityMap.context.createEntity<number>(sizeKey);
 	}
 
 	public get(index: number): StorageContextEntity<V, T> {
-		return this.entitySet.getEntity(index + '');
+		return this.entityMap.getEntity(index + '');
 	}
 
 	public async clear(): Promise<void> {

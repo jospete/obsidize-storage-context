@@ -40,6 +40,21 @@ export class MockBrowserStorage implements Storage {
 	}
 
 	private reloadKeys(): void {
-		this.mKeys = Array.from(this.content.keys());
+		this.mKeys = this.mapKeys();
+	}
+
+	private mapKeys(): string[] {
+		return Array.from(this.content.keys());
+	}
+
+	public toJSON(): { [key: string]: any } {
+
+		const result: { [key: string]: any } = {};
+
+		this.content.forEach((value: any, key: string) => {
+			result[key] = value;
+		});
+
+		return result;
 	}
 }
