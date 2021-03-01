@@ -25,13 +25,17 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 		return this.entitySet.getEntity(index + '');
 	}
 
-	public async load(defaultValue?: V): Promise<V[]> {
+	public async clear(): Promise<void> {
+		await this.save([]);
+	}
+
+	public async load(defaultValue: V[] = []): Promise<V[]> {
 
 		const size = await this.sizeEntity.load(0);
 		const result: V[] = [];
 
 		for (let i = 0; i < size; i++) {
-			result[i] = await this.get(i).load(defaultValue);
+			result[i] = await this.get(i).load(defaultValue[i]);
 		}
 
 		return result;

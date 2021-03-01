@@ -1,4 +1,5 @@
 export { BrowserStorageTransport } from './browser-storage-transport';
+export { MockBrowserStorage } from './mock-browser-storage';
 export { SerializationDuplex, getJSONSerializationDuplex } from './serialization-duplex';
 export { SerializedEntityArray, StorageContextEntityArray } from './storage-context-entity-array';
 export { StorageContextEntityOptions, getDefaultStorageContextEntityOptions } from './storage-context-entity-options';

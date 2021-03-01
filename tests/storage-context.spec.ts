@@ -114,16 +114,53 @@ describe('StorageContext', () => {
 		});
 	});
 
-	describe('General Usage', async () => {
+	describe('General Usage', () => {
 
-		const baseContext = createDefault();
-		const featureSetACtx = baseContext.getSubContext('featureSetA');
-		const aIsInitializedEntity = featureSetACtx.createEntity<boolean>('isInitialized');
-		const aIsInitialized = await aIsInitializedEntity.load(false);
-		expect(aIsInitialized).toBe(false);
+		it('can run the readme example', async () => {
 
-		await aIsInitializedEntity.save(true);
-		const updatedInitValue = await aIsInitializedEntity.load();
-		expect(updatedInitValue).toBe(true);
+			interface FeatureAEntity_1 {
+				id: number;
+				name: string;
+				enabled: boolean;
+			}
+
+			const baseContext = createDefault();
+			const featureSetACtx = baseContext.getSubContext('featureSetA');
+			const aIsInitializedEntity = featureSetACtx.createEntity<boolean>('isInitialized');
+			const aIsInitialized = await aIsInitializedEntity.load(false);
+			expect(aIsInitialized).toBe(false);
+
+			await aIsInitializedEntity.save(true);
+			const updatedInitValue = await aIsInitializedEntity.load();
+			expect(updatedInitValue).toBe(true);
+
+			const aSerializedArray = featureSetACtx.getSubContext('serializedItems').createEntityArray<FeatureAEntity_1>();
+			const initialSerializedResult = await aSerializedArray.load();
+			expect(initialSerializedResult).toEqual([]);
+
+			const sample_aArray: FeatureAEntity_1[] = [
+				{ id: 0, name: 'test_0', enabled: true },
+				{ id: 1, name: 'test_1', enabled: false },
+				{ id: 2, name: 'test_2', enabled: true },
+			];
+
+			await aSerializedArray.save(sample_aArray);
+			const aSerializedArray_LoadResult = await aSerializedArray.load();
+			expect(aSerializedArray_LoadResult).toEqual(sample_aArray);
+			expect(transport.mockStorage.getItem(aSerializedArray.get(1).entry.absoluteKey)).toBe(JSON.stringify(sample_aArray[1]));
+			expect(aSerializedArray.entitySet.keys()).toEqual([
+				'featureSetA$serializedItems$length',
+				'featureSetA$serializedItems$0',
+				'featureSetA$serializedItems$1',
+				'featureSetA$serializedItems$2'
+			]);
+
+			await aSerializedArray.clear();
+			const updatedSizeValue = await aSerializedArray.sizeEntity.load();
+			expect(updatedSizeValue).toBe(0);
+
+			const aSerializedArray_LoadResult2 = await aSerializedArray.load();
+			expect(aSerializedArray_LoadResult2).toEqual([]);
+		});
 	});
 });
