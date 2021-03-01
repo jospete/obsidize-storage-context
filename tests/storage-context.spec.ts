@@ -108,7 +108,7 @@ describe('StorageContext', () => {
 
 	describe('General Usage', () => {
 
-		it('can run the readme example', async () => {
+		it('can perform standard serializer operations', async () => {
 
 			interface FeatureAEntity_1 {
 				id: number;
