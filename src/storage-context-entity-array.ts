@@ -1,5 +1,5 @@
 import { SerializedEntity, StorageContextEntity } from './storage-context-entity';
-import { StorageContextEntitySet } from './storage-context-entity-set';
+import { StorageContextEntityMap } from './storage-context-entity-map';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 
 /**
@@ -15,7 +15,7 @@ export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
 	public readonly sizeEntity: SerializedEntity<number>;
 
 	constructor(
-		public readonly entitySet: StorageContextEntitySet<V, T>,
+		public readonly entitySet: StorageContextEntityMap<V, T>,
 		sizeKey: string = 'length'
 	) {
 		this.sizeEntity = this.entitySet.context.createEntity<number>(sizeKey);

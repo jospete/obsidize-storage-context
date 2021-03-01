@@ -3,7 +3,7 @@ import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { getDefaultStorageContextOptions, StorageContextOptions } from './storage-context-options';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
-import { StorageContextEntitySet } from './storage-context-entity-set';
+import { StorageContextEntityMap } from './storage-context-entity-map';
 import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageContextEntityArray } from './storage-context-entity-array';
 
@@ -80,12 +80,12 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return this.getKeyValuePair(key).asEntity<V>(options);
 	}
 
-	public createEntitySet<V>(sharedOptions?: StorageContextEntityOptions<V>): StorageContextEntitySet<V, T> {
-		return new StorageContextEntitySet(this, sharedOptions);
+	public createEntityMap<V>(sharedOptions?: StorageContextEntityOptions<V>): StorageContextEntityMap<V, T> {
+		return new StorageContextEntityMap(this, sharedOptions);
 	}
 
 	public createEntityArray<V>(sharedOptions?: StorageContextEntityOptions<V>, sizeKey?: string): StorageContextEntityArray<V, T> {
-		return this.createEntitySet<V>(sharedOptions).toSerializedArray(sizeKey);
+		return this.createEntityMap<V>(sharedOptions).toSerializedArray(sizeKey);
 	}
 
 	private createCombinedKey(parts: string[]): string {

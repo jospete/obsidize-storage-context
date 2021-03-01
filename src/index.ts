@@ -3,7 +3,7 @@ export { MockBrowserStorage } from './mock-browser-storage';
 export { SerializationDuplex, getJSONSerializationDuplex } from './serialization-duplex';
 export { SerializedEntityArray, StorageContextEntityArray } from './storage-context-entity-array';
 export { StorageContextEntityOptions, getDefaultStorageContextEntityOptions } from './storage-context-entity-options';
-export { StorageContextEntitySet, SerializedEntitySet } from './storage-context-entity-set';
+export { StorageContextEntityMap as StorageContextEntitySet, SerializedEntitySet } from './storage-context-entity-map';
 export { StorageContextEntity, SerializedEntity } from './storage-context-entity';
 export { StorageContextKeyValuePair, SerializedKeyValuePair } from './storage-context-key-value-pair';
 export { StorageContextOptions, getDefaultStorageContextOptions } from './storage-context-options';

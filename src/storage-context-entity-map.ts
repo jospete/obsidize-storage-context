@@ -10,12 +10,12 @@ const { findOrCreateMapEntry } = StorageContextUtility;
 /**
  * Simplified type for generic use-cases.
  */
-export type SerializedEntitySet<V> = StorageContextEntitySet<V, StorageTransportApiMask>;
+export type SerializedEntitySet<V> = StorageContextEntityMap<V, StorageTransportApiMask>;
 
 /**
  * Represents a collection of StorageContextEntity instances of the same value type.
  */
-export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
+export class StorageContextEntityMap<V, T extends StorageTransportApiMask> {
 
 	public readonly entityMap: Map<string, StorageContextEntity<V, T>> = new Map();
 

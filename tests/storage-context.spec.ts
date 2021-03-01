@@ -86,7 +86,7 @@ describe('StorageContext', () => {
 		it('can have a custom size attribute specified', () => {
 			const baseContext = createDefault();
 			const arrayContext = baseContext.getSubContext('tmpArray');
-			const entityArray = arrayContext.createEntitySet<DummyEntity>().toSerializedArray('countKey');
+			const entityArray = arrayContext.createEntityMap<DummyEntity>().toSerializedArray('countKey');
 			expect(entityArray.sizeEntity.keyValuePair.key).toBe('countKey');
 		});
 	});
@@ -147,6 +147,9 @@ describe('StorageContext', () => {
 			await aSerializedArray.save(sample_aArray);
 			const aSerializedArray_LoadResult = await aSerializedArray.load();
 			expect(aSerializedArray_LoadResult).toEqual(sample_aArray);
+
+			const entityMapValues = await aSerializedArray.entitySet.reloadAllValues();
+			expect(entityMapValues).toEqual(sample_aArray);
 
 			const serializedSingleKey = aSerializedArray.get(1).keyValuePair.absoluteKey;
 			const serializedSingleValue = JSON.stringify(sample_aArray[1]);
