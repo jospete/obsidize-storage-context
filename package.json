@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/storage-context",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Utilities to enhance and organize complex sets of data on top of simple key/value systems like localStorage.",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -18,9 +18,10 @@
     "copy:readme": "cpy ./README.md ./dist/",
     "copy:assets": "run-p copy:package copy:readme",
     "dist:publish": "npm publish ./dist",
+    "git:publish": "node ./scripts/release-publish.js",
     "release:prepare": "node ./scripts/release-prepare.js",
     "release:test": "run-s rebuild coverage copy:assets",
-    "release:publish": "run-s dist:publish",
+    "release:publish": "run-s git:publish",
     "release:prepare:patch": "npm run release:prepare -- --release-as patch",
     "bump": "run-s release:prepare:patch release:test release:publish"
   },
