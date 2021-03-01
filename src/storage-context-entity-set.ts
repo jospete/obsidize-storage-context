@@ -26,14 +26,10 @@ export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
 	}
 
 	public getEntity(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
-		return findOrCreateMapEntry(this.entityMap, key, () => this.context.getKeyValuePair(key).asEntity<V>(options));
+		return findOrCreateMapEntry(this.entityMap, key, () => this.context.createEntity<V>(key, options));
 	}
 
-	public keys(): string[] {
-		return Array.from(this.entityMap.keys());
-	}
-
-	public entitySet(): StorageContextEntity<V, T>[] {
+	public entries(): StorageContextEntity<V, T>[] {
 		return Array.from(this.entityMap.values());
 	}
 
@@ -42,6 +38,6 @@ export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
 	}
 
 	public reloadAllValues(): Promise<V[]> {
-		return Promise.all(this.entitySet().map(entity => entity.load()));
+		return Promise.all(this.entries().map(entity => entity.load()));
 	}
 }

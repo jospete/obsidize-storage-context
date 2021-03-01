@@ -27,7 +27,7 @@ describe('StorageContext', () => {
 
 		await baseContext.clear();
 		const reloadedValue = await targetKVP.load();
-		expect(reloadedValue).not.toBeDefined();
+		expect(reloadedValue).toBeFalsy();
 
 		await targetKVP.clear();
 		const targetKVPValue2 = await targetKVP.load('');
@@ -51,7 +51,7 @@ describe('StorageContext', () => {
 			].join(StorageContext.absolutePrefixSeparator));
 
 			const currentValue = await kvp.load();
-			expect(currentValue).not.toBeDefined();
+			expect(currentValue).toBeFalsy();
 
 			await kvp.save('dummy_value');
 			const updateValue = await kvp.load();
@@ -87,7 +87,7 @@ describe('StorageContext', () => {
 			const baseContext = createDefault();
 			const arrayContext = baseContext.getSubContext('tmpArray');
 			const entityArray = arrayContext.createEntitySet<DummyEntity>().toSerializedArray('countKey');
-			expect(entityArray.sizeEntity.entry.key).toBe('countKey');
+			expect(entityArray.sizeEntity.keyValuePair.key).toBe('countKey');
 		});
 	});
 
@@ -147,9 +147,15 @@ describe('StorageContext', () => {
 			await aSerializedArray.save(sample_aArray);
 			const aSerializedArray_LoadResult = await aSerializedArray.load();
 			expect(aSerializedArray_LoadResult).toEqual(sample_aArray);
-			expect(transport.mockStorage.getItem(aSerializedArray.get(1).entry.absoluteKey)).toBe(JSON.stringify(sample_aArray[1]));
-			expect(aSerializedArray.entitySet.keys()).toEqual([
-				'featureSetA$serializedItems$length',
+
+			const serializedSingleKey = aSerializedArray.get(1).keyValuePair.absoluteKey;
+			const serializedSingleValue = JSON.stringify(sample_aArray[1]);
+
+			expect(serializedSingleKey).toBe('featureSetA$serializedItems$1');
+			const storedRawValue = await baseContext.transport.getItem('1');
+			// expect(storedRawValue).toBe(serializedSingleValue);
+
+			expect(aSerializedArray.entitySet.entries().map(e => e.keyValuePair.absoluteKey)).toEqual([
 				'featureSetA$serializedItems$0',
 				'featureSetA$serializedItems$1',
 				'featureSetA$serializedItems$2'

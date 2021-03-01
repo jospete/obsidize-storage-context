@@ -15,7 +15,7 @@ export type SerializedEntity<V> = StorageContextEntity<V, StorageTransportApiMas
 export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 
 	constructor(
-		public readonly entry: StorageContextKeyValuePair<T>,
+		public readonly keyValuePair: StorageContextKeyValuePair<T>,
 		public readonly options: StorageContextEntityOptions<V> = getDefaultStorageContextEntityOptions<V>()
 	) {
 	}
@@ -25,15 +25,15 @@ export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 	}
 
 	public clear(): Promise<void> {
-		return this.entry.clear();
+		return this.keyValuePair.clear();
 	}
 
 	public save(value: V): Promise<void> {
-		return this.entry.save(this.serializer.serialize(value));
+		return this.keyValuePair.save(this.serializer.serialize(value));
 	}
 
 	public async load(defaultValue?: V): Promise<V> {
-		const storedValue = await this.entry.load();
+		const storedValue = await this.keyValuePair.load();
 		return this.serializer.deserialize(storedValue as any, defaultValue);
 	}
 }

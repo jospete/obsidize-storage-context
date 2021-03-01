@@ -7,8 +7,16 @@ export namespace StorageContextUtility {
 		return typeof v === 'undefined';
 	}
 
+	export function isNull(value: any): boolean {
+		return value === null;
+	}
+
 	export function optDefined<T>(value: T, fallback: T): T {
 		return isUndefined(value) ? fallback : value;
+	}
+
+	export function optFalsyValue<T>(value: T, fallback: T): T {
+		return isUndefined(value) || isNull(value) ? fallback : value;
 	}
 
 	export function toArray<V>(value: any): V[] {

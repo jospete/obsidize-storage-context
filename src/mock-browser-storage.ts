@@ -6,9 +6,10 @@ export class MockBrowserStorage implements Storage {
 	[name: string]: any;
 
 	public readonly content: Map<string, string> = new Map();
+	private mKeys: string[] = [];
 
 	public get length(): number {
-		return this.content.size;
+		return this.keys().length;
 	}
 
 	public key(index: number): string {
@@ -21,17 +22,24 @@ export class MockBrowserStorage implements Storage {
 
 	public setItem(key: string, value: string): void {
 		this.content.set(key, value);
+		this.reloadKeys();
 	}
 
 	public removeItem(key: string): void {
 		this.content.delete(key);
+		this.reloadKeys();
 	}
 
 	public clear(): void {
 		this.content.clear();
+		this.reloadKeys();
 	}
 
 	public keys(): string[] {
-		return Array.from(this.content.keys());
+		return this.mKeys;
+	}
+
+	private reloadKeys(): void {
+		this.mKeys = Array.from(this.content.keys());
 	}
 }

@@ -4,7 +4,7 @@ import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageTransportApiMask } from './storage-transport-api-mask';
 import { StorageContextUtility } from './storage-context-utility';
 
-const { optDefined } = StorageContextUtility;
+const { optFalsyValue } = StorageContextUtility;
 
 /**
  * Simplified type for generic use-cases.
@@ -39,8 +39,8 @@ export class StorageContextKeyValuePair<T extends StorageTransportApiMask> {
 		return this.context.setItem(this.key, update);
 	}
 
-	public async load(defaultValue?: string): Promise<string | null | undefined> {
+	public async load(defaultValue?: string): Promise<string | undefined> {
 		const result = await this.context.getItem(this.key);
-		return optDefined(result, defaultValue);
+		return optFalsyValue(result as any, defaultValue);
 	}
 }
