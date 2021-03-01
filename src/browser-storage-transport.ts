@@ -10,23 +10,23 @@ export class BrowserStorageTransport implements StorageTransportApiMask {
 	) {
 	}
 
-	public async getItem(key: string): Promise<string> {
-		return this.source.getItem(key) as any;
+	public getItem(key: string): Promise<string | null | undefined> {
+		return Promise.resolve(this.source.getItem(key));
 	}
 
-	public async setItem(key: string, value: string): Promise<void> {
-		this.source.setItem(key, value);
+	public setItem(key: string, value: string): Promise<void> {
+		return Promise.resolve(this.source.setItem(key, value));
 	}
 
-	public async removeItem(key: string): Promise<void> {
-		this.source.removeItem(key);
+	public removeItem(key: string): Promise<void> {
+		return Promise.resolve(this.source.removeItem(key));
 	}
 
-	public async clear(): Promise<void> {
-		this.source.clear();
+	public clear(): Promise<void> {
+		return Promise.resolve(this.source.clear());
 	}
 
-	public async keys(): Promise<string[]> {
+	public keys(): Promise<string[]> {
 
 		const len = this.source.length;
 		const result: string[] = [];
@@ -35,6 +35,6 @@ export class BrowserStorageTransport implements StorageTransportApiMask {
 			result[i] = this.source.key(i) as any;
 		}
 
-		return result;
+		return Promise.resolve(result);
 	}
 }

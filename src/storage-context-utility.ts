@@ -1,3 +1,6 @@
+/**
+ * Common static utilities for this module.
+ */
 export namespace StorageContextUtility {
 
 	export function isUndefined(v: any): boolean {

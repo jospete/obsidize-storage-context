@@ -28,16 +28,12 @@ export class StorageContextEntity<V, T extends StorageTransportApiMask> {
 		return this.entry.clear();
 	}
 
-	public apply(): Promise<void> {
-		return this.entry.apply();
-	}
-
 	public save(value: V): Promise<void> {
 		return this.entry.save(this.serializer.serialize(value));
 	}
 
 	public async load(defaultValue?: V): Promise<V> {
-		await this.entry.load();
-		return this.serializer.deserialize(this.entry.value, defaultValue);
+		const storedValue = await this.entry.load();
+		return this.serializer.deserialize(storedValue as any, defaultValue);
 	}
 }

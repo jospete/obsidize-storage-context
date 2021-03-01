@@ -41,11 +41,7 @@ export class StorageContextEntitySet<V, T extends StorageTransportApiMask> {
 		return new StorageContextEntityArray(this, sizeKey);
 	}
 
-	public load(): Promise<V[]> {
+	public reloadAllValues(): Promise<V[]> {
 		return Promise.all(this.entitySet().map(entity => entity.load()));
-	}
-
-	public async save(): Promise<void> {
-		await Promise.all(this.entitySet().map(entity => entity.entry.apply()));
 	}
 }

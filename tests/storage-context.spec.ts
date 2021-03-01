@@ -22,14 +22,16 @@ describe('StorageContext', () => {
 		const baseContext = createDefault();
 		const targetKVP = baseContext.getKeyValuePair('testEntry');
 		await targetKVP.save('testValue');
-		expect(targetKVP.value).toBe('testValue');
+		const targetKVPValue = await targetKVP.load();
+		expect(targetKVPValue).toBe('testValue');
 
 		await baseContext.clear();
 		const reloadedValue = await targetKVP.load();
 		expect(reloadedValue).not.toBeDefined();
 
 		await targetKVP.clear();
-		expect(targetKVP.value).toBe('');
+		const targetKVPValue2 = await targetKVP.load('');
+		expect(targetKVPValue2).toBe('');
 	});
 
 	describe('Key-Value Pair', () => {
@@ -52,7 +54,7 @@ describe('StorageContext', () => {
 			expect(currentValue).not.toBeDefined();
 
 			await kvp.save('dummy_value');
-			const updateValue = kvp.value;
+			const updateValue = await kvp.load();
 			expect(updateValue).toBe('dummy_value');
 
 			const reloadedValue = await kvp.load();
@@ -116,7 +118,7 @@ describe('StorageContext', () => {
 
 		const baseContext = createDefault();
 		const featureSetACtx = baseContext.getSubContext('featureSetA');
-		const aIsInitializedEntity = featureSetACtx.getEntity<boolean>('isInitialized');
+		const aIsInitializedEntity = featureSetACtx.createEntity<boolean>('isInitialized');
 		const aIsInitialized = await aIsInitializedEntity.load(false);
 		expect(aIsInitialized).toBe(false);
 

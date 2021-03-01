@@ -37,7 +37,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 	) {
 	}
 
-	public getItem(key: string): Promise<string> {
+	public getItem(key: string): Promise<string | null | undefined> {
 		return this.transport.getItem(this.getAbsoluteKey(key));
 	}
 
@@ -76,7 +76,7 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return findOrCreateMapEntry(this.mKeyValuePairs, key, () => new StorageContextKeyValuePair(this, key));
 	}
 
-	public getEntity<V>(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
+	public createEntity<V>(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
 		return this.getKeyValuePair(key).asEntity<V>(options);
 	}
 
