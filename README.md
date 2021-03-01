@@ -16,4 +16,4 @@ If you just need to save 3 string values to localStorage, you probably don't nee
 The main benefit of this wrapper library is that it can break apart arrays of complex/large data schemas into separate entries under the hood,
 and maintain context references that automatically build flattened absolute key paths in the background.
 
-See the [Example Usage Spec]() to get a general feel for what this module can do.
+See the [Example Usage Spec](https://github.com/jospete/obsidize-storage-context/blob/master/tests/example-usage.spec.ts) to get a general feel for what this module can do.
