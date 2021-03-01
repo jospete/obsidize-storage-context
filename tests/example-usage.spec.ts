@@ -6,13 +6,18 @@ describe('Example Usage', () => {
 
 		// ***** 1. Create a base context for your application
 
+		// Note that while we are using localStorage for an example here, 
+		// you could just as easily create your own transport via:
+		// ```implements StorageTransportApiMask``` 
 		const localStoragecontext = new StorageContext(new BrowserStorageTransport(localStorage));
+
 
 		// ***** 2. Create module sub-contexts to isolate possible key duplicates
 
 		const mod1Context = localStoragecontext.getSubContext('mod1');
 		const mod1FeatureAContext = mod1Context.getSubContext('featureA');
 		const mod1Addon = mod1Context.getSubContext('addOn');
+
 
 		// ***** 3. Save and load some string data
 
@@ -32,6 +37,7 @@ describe('Example Usage', () => {
 		expect(userNameForAddon.key).toBe('userName');
 		expect(userNameForAddon.absoluteKey).toBe('mod1$addOn$userName');
 		expect(userNameForAddonValue).toBe('Johnny');
+
 
 		// ***** 4. Save and load some JSON data
 
