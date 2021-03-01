@@ -1,4 +1,4 @@
-import { StorageContext, BrowserStorageTransport } from '../src';
+import { StorageContext, BrowserStorageTransport, MockBrowserStorage } from '../src';
 
 describe('Example Usage', () => {
 
@@ -9,7 +9,8 @@ describe('Example Usage', () => {
 		// Note that while we are using localStorage for an example here, 
 		// you could just as easily create your own transport via:
 		// ```implements StorageTransportApiMask``` 
-		const localStoragecontext = new StorageContext(new BrowserStorageTransport(localStorage));
+		const mockLocalStorage = new MockBrowserStorage();
+		const localStoragecontext = new StorageContext(new BrowserStorageTransport(mockLocalStorage));
 
 
 		// ***** 2. Create module sub-contexts to isolate possible key duplicates
@@ -101,5 +102,17 @@ describe('Example Usage', () => {
 		const addOnSecondEntryValue = await addOnSecondEntry.load();
 
 		expect(addOnSecondEntryValue).toEqual({ showNotifications: false, preferredName: 'Sally', subCount: 1 });
+
+		// Storage state after all the above examples have executed.
+		expect(mockLocalStorage.toJSON()).toEqual({
+			mod1$featureA$userName: 'John',
+			mod1$addOn$userName: 'Johnny',
+			mod1$addOn$userId: '42',
+			mod1$addOn$userPrefs: '{"showNotifications":true,"preferredName":"Tony","subCount":4}',
+			mod1$addOn$itemArray$length: '3',
+			mod1$addOn$itemArray$0: '{"showNotifications":true,"preferredName":"Bob","subCount":0}',
+			mod1$addOn$itemArray$1: '{"showNotifications":false,"preferredName":"Sally","subCount":1}',
+			mod1$addOn$itemArray$2: '{"showNotifications":false,"preferredName":"Frank","subCount":2}'
+		});
 	});
 });
