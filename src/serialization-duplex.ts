@@ -15,7 +15,7 @@ export interface SerializationDuplex<T> {
  */
 export const getJSONSerializationDuplex = <T>(): SerializationDuplex<T> => {
 	return {
-		serialize: (value: T) => bombShield(() => JSON.stringify(value), (value + '')),
+		serialize: (value: T) => bombShield(() => JSON.stringify(value), (value + '<NonSerializable>')),
 		deserialize: (data: string, fallback?: T) => bombShield(() => JSON.parse(data), optDefined(fallback, data as any))
 	};
 };
