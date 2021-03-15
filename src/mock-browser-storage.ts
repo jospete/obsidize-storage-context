@@ -1,3 +1,6 @@
+import { StorageContextUtility } from './storage-context-utility';
+const { optDefined } = StorageContextUtility;
+
 /**
  * Utility for faking localstorage objects as needed.
  */
@@ -17,7 +20,7 @@ export class MockBrowserStorage implements Storage {
 	}
 
 	public getItem(key: string): string | null {
-		return this.content.get(key) || null;
+		return optDefined(this.content.get(key), null) as any;
 	}
 
 	public setItem(key: string, value: string): void {
