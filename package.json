@@ -1,6 +1,6 @@
 {
   "name": "@obsidize/storage-context",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Utilities to enhance and organize complex sets of data on top of simple key/value systems like localStorage.",
   "main": "dist/index.es5.js",
   "module": "dist/index.js",
