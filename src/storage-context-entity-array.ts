@@ -1,29 +1,24 @@
-import { SerializedEntity, StorageContextEntity } from './storage-context-entity';
+import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityMap } from './storage-context-entity-map';
-import { StorageTransportApiMask } from './storage-transport-api-mask';
 import { StorageContextUtility } from './storage-context-utility';
-const { toArray } = StorageContextUtility;
 
-/**
- * Simplified type for generic use-cases.
- */
-export type SerializedEntityArray<V> = StorageContextEntityArray<V, StorageTransportApiMask>;
+const { toArray } = StorageContextUtility;
 
 /**
  * Represents a serialized array of items of type V.
  */
-export class StorageContextEntityArray<V, T extends StorageTransportApiMask> {
+export class StorageContextEntityArray<V> {
 
-	public readonly sizeEntity: SerializedEntity<number>;
+	public readonly sizeEntity: StorageContextEntity<number>;
 
 	constructor(
-		public readonly entityMap: StorageContextEntityMap<V, T>,
+		public readonly entityMap: StorageContextEntityMap<V>,
 		sizeKey: string = 'length'
 	) {
 		this.sizeEntity = this.entityMap.context.createEntity<number>(sizeKey);
 	}
 
-	public get(index: number): StorageContextEntity<V, T> {
+	public get(index: number): StorageContextEntity<V> {
 		return this.entityMap.getEntity(index + '');
 	}
 

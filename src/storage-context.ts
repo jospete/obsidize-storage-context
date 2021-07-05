@@ -10,11 +10,6 @@ import { StorageContextEntityArray } from './storage-context-entity-array';
 const { findOrCreateMapEntry, toArray } = StorageContextUtility;
 
 /**
- * Simplified type for generic use-cases.
- */
-export type SerializationContext = StorageContext<StorageTransportApiMask>;
-
-/**
  * Represents an isolated context for key/value pairs and entities.
  * Here, a "context" is essentially type-enforced namespace for keys.
  * 
@@ -23,17 +18,17 @@ export type SerializationContext = StorageContext<StorageTransportApiMask>;
  * - "myFeatureStorage$someSubContext$item42"
  * - "myFeatureStorage$someSubContext$entityMap$length"
  */
-export class StorageContext<T extends StorageTransportApiMask> implements StorageTransportApiMask {
+export class StorageContext implements StorageTransportApiMask {
 
 	public static absolutePrefixSeparator: string = '$';
 
-	private readonly mSubContexts: Map<string, StorageContext<T>> = new Map();
-	private readonly mKeyValuePairs: Map<string, StorageContextKeyValuePair<T>> = new Map();
+	private readonly mSubContexts: Map<string, StorageContext> = new Map();
+	private readonly mKeyValuePairs: Map<string, StorageContextKeyValuePair> = new Map();
 
 	constructor(
-		public readonly transport: T,
+		public readonly transport: StorageTransportApiMask,
 		public readonly options: StorageContextOptions = getDefaultStorageContextOptions(),
-		private readonly parent: StorageContext<StorageTransportApiMask> | null = null
+		private readonly parent: StorageContext | null = null
 	) {
 	}
 
@@ -68,23 +63,23 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 		return this.generateAbsolutePrefixPath();
 	}
 
-	public getSubContext(prefix: string, options: Partial<StorageContextOptions> = {}): StorageContext<T> {
+	public getSubContext(prefix: string, options: Partial<StorageContextOptions> = {}): StorageContext {
 		return findOrCreateMapEntry(this.mSubContexts, prefix, () => new StorageContext(this.transport, Object.assign({}, options, { prefix }), this));
 	}
 
-	public getKeyValuePair(key: string): StorageContextKeyValuePair<T> {
+	public getKeyValuePair(key: string): StorageContextKeyValuePair {
 		return findOrCreateMapEntry(this.mKeyValuePairs, key, () => new StorageContextKeyValuePair(this, key));
 	}
 
-	public createEntity<V>(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
+	public createEntity<V>(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V> {
 		return this.getKeyValuePair(key).asEntity<V>(options);
 	}
 
-	public createEntityMap<V>(sharedOptions?: StorageContextEntityOptions<V>): StorageContextEntityMap<V, T> {
+	public createEntityMap<V>(sharedOptions?: StorageContextEntityOptions<V>): StorageContextEntityMap<V> {
 		return new StorageContextEntityMap(this, sharedOptions);
 	}
 
-	public createEntityArray<V>(sharedOptions?: StorageContextEntityOptions<V>, sizeKey?: string): StorageContextEntityArray<V, T> {
+	public createEntityArray<V>(sharedOptions?: StorageContextEntityOptions<V>, sizeKey?: string): StorageContextEntityArray<V> {
 		return this.createEntityMap<V>(sharedOptions).toSerializedArray(sizeKey);
 	}
 
@@ -96,8 +91,8 @@ export class StorageContext<T extends StorageTransportApiMask> implements Storag
 
 	private generateAbsolutePrefixPath(): string {
 
-		let stack: StorageContext<StorageTransportApiMask>[] = [];
-		let target: StorageContext<StorageTransportApiMask> | null = this;
+		let stack: StorageContext[] = [];
+		let target: StorageContext | null = this;
 
 		while (target && !stack.includes(target)) {
 			stack.unshift(target);

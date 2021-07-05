@@ -3,37 +3,31 @@ import { StorageContext } from './storage-context';
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityArray } from './storage-context-entity-array';
 import { getDefaultStorageContextEntityOptions, StorageContextEntityOptions } from './storage-context-entity-options';
-import { StorageTransportApiMask } from './storage-transport-api-mask';
 
 const { findOrCreateMapEntry } = StorageContextUtility;
 
 /**
- * Simplified type for generic use-cases.
- */
-export type SerializedEntityMap<V> = StorageContextEntityMap<V, StorageTransportApiMask>;
-
-/**
  * Represents a collection of StorageContextEntity instances of the same value type.
  */
-export class StorageContextEntityMap<V, T extends StorageTransportApiMask> {
+export class StorageContextEntityMap<V> {
 
-	public readonly content: Map<string, StorageContextEntity<V, T>> = new Map();
+	public readonly content: Map<string, StorageContextEntity<V>> = new Map();
 
 	constructor(
-		public readonly context: StorageContext<T>,
+		public readonly context: StorageContext,
 		public readonly sharedOptions: StorageContextEntityOptions<V> = getDefaultStorageContextEntityOptions<V>()
 	) {
 	}
 
-	public getEntity(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V, T> {
+	public getEntity(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V> {
 		return findOrCreateMapEntry(this.content, key, () => this.context.createEntity<V>(key, options));
 	}
 
-	public entries(): StorageContextEntity<V, T>[] {
+	public entries(): StorageContextEntity<V>[] {
 		return Array.from(this.content.values());
 	}
 
-	public toSerializedArray(sizeKey?: string): StorageContextEntityArray<V, T> {
+	public toSerializedArray(sizeKey?: string): StorageContextEntityArray<V> {
 		return new StorageContextEntityArray(this, sizeKey);
 	}
 

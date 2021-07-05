@@ -1,21 +1,15 @@
 import { getDefaultStorageContextEntityOptions, StorageContextEntityOptions } from './storage-context-entity-options';
-import { StorageTransportApiMask } from './storage-transport-api-mask';
 import { StorageContextKeyValuePair } from './storage-context-key-value-pair';
 import { SerializationDuplex } from './serialization-duplex';
-
-/**
- * Simplified type for generic use-cases.
- */
-export type SerializedEntity<V> = StorageContextEntity<V, StorageTransportApiMask>;
 
 /**
  * Represents a complex (probably JSON) entity that 
  * can be serialized to and deserialized from a string.
  */
-export class StorageContextEntity<V, T extends StorageTransportApiMask> {
+export class StorageContextEntity<V> {
 
 	constructor(
-		public readonly keyValuePair: StorageContextKeyValuePair<T>,
+		public readonly keyValuePair: StorageContextKeyValuePair,
 		public readonly options: StorageContextEntityOptions<V> = getDefaultStorageContextEntityOptions<V>()
 	) {
 	}
