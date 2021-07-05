@@ -1,7 +1,7 @@
 import { StorageContext } from '../src';
 import { MockStorageTransport } from './mock-storage-transport';
 
-export class MockStorageBaseContext extends StorageContext<MockStorageTransport> {
+export class MockStorageBaseContext extends StorageContext {
 
 	public readonly mockTransport: MockStorageTransport;
 
