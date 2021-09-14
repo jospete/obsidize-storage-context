@@ -27,7 +27,7 @@ export class StorageContextEntity<V> {
 	}
 
 	public async load(defaultValue?: V): Promise<V> {
-		const storedValue = await this.keyValuePair.load();
+		const storedValue = await this.keyValuePair.load().catch(() => defaultValue);
 		return this.serializer.deserialize(storedValue as any, defaultValue);
 	}
 }
