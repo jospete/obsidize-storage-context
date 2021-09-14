@@ -1,4 +1,4 @@
-import { StorageTransportApiMask } from './storage-transport-api-mask';
+import { StorageTransportApiMask } from '../core/storage-transport-api-mask';
 
 /**
  * Wraps synchronous storage with the necessary api mask methods.

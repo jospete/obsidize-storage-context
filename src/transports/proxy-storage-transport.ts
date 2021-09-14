@@ -1,4 +1,4 @@
-import { StorageTransportApiMask } from './storage-transport-api-mask';
+import { StorageTransportApiMask } from '../core/storage-transport-api-mask';
 
 /**
  * Special aggregator that allows for transport hot-swapping.
@@ -8,7 +8,7 @@ export class ProxyStorageTransport implements StorageTransportApiMask {
 	private mFocusIndex: number = 0;
 
 	constructor(
-		private readonly transports: StorageTransportApiMask[]
+		protected readonly transports: StorageTransportApiMask[]
 	) {
 	}
 
@@ -17,7 +17,8 @@ export class ProxyStorageTransport implements StorageTransportApiMask {
 	}
 
 	public set target(value: StorageTransportApiMask) {
-		this.mFocusIndex = Math.max(this.transports.indexOf(value), 0);
+		const targetIndex = this.transports.indexOf(value);
+		if (targetIndex >= 0) this.mFocusIndex = targetIndex;
 	}
 
 	public getItem(key: string): Promise<string | null | undefined> {

@@ -17,3 +17,5 @@ The main benefit of this wrapper library is that it can break apart arrays of co
 and maintain context references that automatically build flattened absolute key paths in the background.
 
 See the [Example Usage Spec](https://github.com/jospete/obsidize-storage-context/blob/master/tests/example-usage.spec.ts) to get a general feel for what this module can do.
+
+See the [Ionic Proxy Spec](https://github.com/jospete/obsidize-storage-context/blob/master/tests/example-ionic-storage-proxy-usage.spec.ts) for an example of hot-swapping transports.

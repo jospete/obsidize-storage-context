@@ -28,7 +28,7 @@ export class StorageContext implements StorageTransportApiMask {
 	constructor(
 		public readonly transport: StorageTransportApiMask,
 		public readonly options: StorageContextOptions = getDefaultStorageContextOptions(),
-		private readonly parent: StorageContext | null = null
+		protected readonly parent: StorageContext | null = null
 	) {
 	}
 
