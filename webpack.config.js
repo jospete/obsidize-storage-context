@@ -4,6 +4,7 @@ module.exports = {
 	entry: './src/index.ts',
 	mode: 'production',
 	target: 'node',
+	externals: ['tslib'],
 	module: {
 		rules: [
 			{
@@ -22,8 +23,5 @@ module.exports = {
 		library: {
 			type: 'commonjs-module'
 		}
-	},
-	externals: {
-		tslib: 'tslib'
 	}
 };
