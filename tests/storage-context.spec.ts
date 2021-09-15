@@ -49,6 +49,20 @@ describe('StorageContext', () => {
 		});
 	});
 
+	describe('Entity', () => {
+
+		it('returns the default value on load error', async () => {
+
+			const baseContext = new MockStorageBaseContext();
+			const testItem = baseContext.createEntity<number>('testItem');
+
+			spyOn(baseContext.transport, 'getItem').and.callFake(() => Promise.reject('fake_error'));
+
+			const result = await testItem.load(1234);
+			expect(result).toBe(1234);
+		});
+	});
+
 	describe('Entity Array', () => {
 
 		interface DummyEntity {
