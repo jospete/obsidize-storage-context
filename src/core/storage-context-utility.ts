@@ -29,7 +29,7 @@ export namespace StorageContextUtility {
 			return action();
 
 		} catch (err) {
-			return optDefined(fallbackValue, err);
+			return optDefined<any>(fallbackValue, err);
 		}
 	}
 
