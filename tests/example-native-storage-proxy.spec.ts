@@ -1,11 +1,11 @@
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
-import { BrowserStorageTransport, IonicNativeStorageTransport, MockBrowserStorage, MockIonicNativeStorage, ProxyStorageTransport, StorageContext } from '../src';
+import { BrowserStorageTransport, NativeStorageTransport, MockBrowserStorage, MockNativeStorage, ProxyStorageTransport, StorageContext } from '../src';
 
 const createDefaults = () => {
 
 	const mockBrowserTransport = new BrowserStorageTransport(new MockBrowserStorage());
-	const mockNativeTransport = new IonicNativeStorageTransport(new MockIonicNativeStorage(new MockBrowserStorage()));
+	const mockNativeTransport = new NativeStorageTransport(new MockNativeStorage(new MockBrowserStorage()));
 
 	const proxyTransport = new ProxyStorageTransport([
 		mockBrowserTransport,
@@ -22,7 +22,7 @@ const createDefaults = () => {
 	};
 };
 
-describe('Example Ionic Native Storage Proxy', () => {
+describe('Example Native Storage Proxy', () => {
 
 	it('works with direct references to real storage interfaces', async () => {
 
@@ -30,7 +30,7 @@ describe('Example Ionic Native Storage Proxy', () => {
 
 		// Create your transports
 		const browserTransport = new BrowserStorageTransport(localStorage);
-		const nativeTransport = new IonicNativeStorageTransport(nativeStorage);
+		const nativeTransport = new NativeStorageTransport(nativeStorage);
 
 		// Put them in a proxy to allow for hot-swapping between them
 		const proxyTransport = new ProxyStorageTransport([browserTransport, nativeTransport]);

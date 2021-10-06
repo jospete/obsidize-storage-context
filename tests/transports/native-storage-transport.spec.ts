@@ -1,13 +1,13 @@
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 
-import { IonicNativeStorageTransport } from '../src';
+import { NativeStorageTransport } from '../../src';
 
-describe('IonicNativeStorageTransport', () => {
+describe('NativeStorageTransport', () => {
 
-	it('is a mask for the ionic native NativeStorage plugin', async () => {
+	it('is a mask for the cordova NativeStorage plugin', async () => {
 
 		const nativeStorage = new NativeStorage();
-		const nativeTransport = new IonicNativeStorageTransport(nativeStorage);
+		const nativeTransport = new NativeStorageTransport(nativeStorage);
 
 		spyOn(nativeStorage, 'getItem');
 		nativeTransport.getItem('test');

@@ -1,7 +1,10 @@
 import { StorageTransportApiMask } from '../core/storage-transport-api-mask';
 
-// Taken from here - https://github.com/ionic-team/ionic-native/blob/master/src/%40ionic-native/plugins/native-storage/index.ts
-export interface IonicNativeStorageLike {
+/**
+ * Native Storage interface inspired by the native-storage cordova plugin wrapper here:
+ * https://github.com/danielsogl/awesome-cordova-plugins/blob/master/src/%40awesome-cordova-plugins/plugins/native-storage/index.ts
+ */
+export interface NativeStorageLike {
 	setItem(reference: string, value: any): Promise<any>;
 	getItem(reference: string): Promise<any>;
 	keys(): Promise<any>;
@@ -12,10 +15,10 @@ export interface IonicNativeStorageLike {
 /**
  * Wraps synchronous storage with the necessary api mask methods.
  */
-export class IonicNativeStorageTransport implements StorageTransportApiMask {
+export class NativeStorageTransport implements StorageTransportApiMask {
 
 	constructor(
-		protected readonly source: IonicNativeStorageLike
+		protected readonly source: NativeStorageLike
 	) {
 	}
 

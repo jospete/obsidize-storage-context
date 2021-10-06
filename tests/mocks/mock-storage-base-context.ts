@@ -1,5 +1,5 @@
-import { StorageContext } from '../src';
-import { MockStorageTransport } from './mock-storage-transport';
+import { StorageContext } from '../../src';
+import { MockStorageTransport } from '../mocks/mock-storage-transport';
 
 export class MockStorageBaseContext extends StorageContext {
 

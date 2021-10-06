@@ -1,4 +1,4 @@
-import { BrowserStorageTransport, MockBrowserStorage } from '../src';
+import { BrowserStorageTransport, MockBrowserStorage } from '../../src';
 
 export class MockStorageTransport extends BrowserStorageTransport {
 

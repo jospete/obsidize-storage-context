@@ -10,7 +10,7 @@ export { StorageContext } from './core/storage-context';
 export { StorageTransportApiMask } from './core/storage-transport-api-mask';
 
 export { BrowserStorageTransport } from './transports/browser-storage-transport';
-export { IonicNativeStorageLike, IonicNativeStorageTransport } from './transports/ionic-native-storage-transport';
+export { NativeStorageLike, NativeStorageTransport } from './transports/native-storage-transport';
 export { MockBrowserStorage } from './transports/mock-browser-storage';
-export { MockIonicNativeStorage } from './transports/mock-ionic-native-storage';
+export { MockNativeStorage } from './transports/mock-native-storage';
 export { ProxyStorageTransport } from './transports/proxy-storage-transport';

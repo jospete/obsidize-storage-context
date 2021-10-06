@@ -1,5 +1,5 @@
-import { StorageContext } from '../src';
-import { MockStorageBaseContext } from './mock-storage-base-context';
+import { StorageContext } from '../../src';
+import { MockStorageBaseContext } from '../mocks/mock-storage-base-context';
 
 describe('StorageContext', () => {
 

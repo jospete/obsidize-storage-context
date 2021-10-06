@@ -60,7 +60,7 @@ console.log(typeof userIdValue2); // 'number'
 
 See the [Example Usage Spec](https://github.com/jospete/obsidize-storage-context/blob/master/tests/example-usage.spec.ts) to get a general feel for what this module can do.
 
-See the [Ionic Proxy Spec](https://github.com/jospete/obsidize-storage-context/blob/master/tests/example-ionic-storage-proxy.spec.ts) for an example of hot-swapping transports.
+See the [Native Proxy Spec](https://github.com/jospete/obsidize-storage-context/blob/master/tests/example-native-storage-proxy.spec.ts) for an example of hot-swapping transports.
 
 ## API
 

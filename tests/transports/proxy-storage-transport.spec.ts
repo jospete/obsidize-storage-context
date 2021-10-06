@@ -1,4 +1,4 @@
-import { BrowserStorageTransport, MockBrowserStorage, ProxyStorageTransport } from '../src';
+import { BrowserStorageTransport, MockBrowserStorage, ProxyStorageTransport } from '../../src';
 
 describe('ProxyStorageTransport', () => {
 
