@@ -1,4 +1,4 @@
-import { NativeStorage } from '@ionic-native/native-storage/ngx';
+import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
 import { BrowserStorageTransport, NativeStorageTransport, MockBrowserStorage, MockNativeStorage, ProxyStorageTransport, StorageContext } from '../src';
 
