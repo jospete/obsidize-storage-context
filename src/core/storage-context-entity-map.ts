@@ -4,8 +4,6 @@ import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityArray } from './storage-context-entity-array';
 import { getDefaultStorageContextEntityOptions, StorageContextEntityOptions } from './storage-context-entity-options';
 
-const { findOrCreateMapEntry } = StorageContextUtility;
-
 /**
  * Represents a collection of StorageContextEntity instances of the same value type.
  */
@@ -20,7 +18,7 @@ export class StorageContextEntityMap<V> {
 	}
 
 	public getEntity(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V> {
-		return findOrCreateMapEntry(this.content, key, () => this.context.createEntity<V>(key, options));
+		return StorageContextUtility.findOrCreateMapEntry(this.content, key, () => this.context.createEntity<V>(key, options));
 	}
 
 	public entries(): StorageContextEntity<V>[] {

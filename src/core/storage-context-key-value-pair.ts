@@ -3,8 +3,6 @@ import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageContextUtility } from './storage-context-utility';
 
-const { optFalsyValue } = StorageContextUtility;
-
 /**
  * Represents a single key/value pair for a target context/transport.
  * This eliminates the need for manual key string referencing for each of the standard transport methods.
@@ -35,6 +33,6 @@ export class StorageContextKeyValuePair {
 
 	public async load(defaultValue?: string): Promise<string | undefined> {
 		const result = await this.context.getItem(this.key);
-		return optFalsyValue(result as any, defaultValue);
+		return StorageContextUtility.optFalsyValue(result as any, defaultValue);
 	}
 }

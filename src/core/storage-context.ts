@@ -7,8 +7,6 @@ import { StorageContextEntityMap } from './storage-context-entity-map';
 import { StorageContextEntityOptions } from './storage-context-entity-options';
 import { StorageContextEntityArray } from './storage-context-entity-array';
 
-const { findOrCreateMapEntry, toArray } = StorageContextUtility;
-
 /**
  * Represents an isolated context for key/value pairs and entities.
  * Here, a "context" is essentially type-enforced namespace for keys.
@@ -51,7 +49,7 @@ export class StorageContext implements StorageTransportApiMask {
 	public async keys(): Promise<string[]> {
 		const keys = await this.transport.keys();
 		const prefix = this.absoluteKeyPrefix;
-		const sanitizedKeys: string[] = toArray(keys);
+		const sanitizedKeys: string[] = Array.from(keys);
 		return sanitizedKeys.filter(k => (k + '').startsWith(prefix));
 	}
 
@@ -64,11 +62,13 @@ export class StorageContext implements StorageTransportApiMask {
 	}
 
 	public getSubContext(prefix: string, options: Partial<StorageContextOptions> = {}): StorageContext {
-		return findOrCreateMapEntry(this.mSubContexts, prefix, () => new StorageContext(this.transport, Object.assign({}, options, { prefix }), this));
+		const generator = () => new StorageContext(this.transport, Object.assign({}, options, { prefix }), this);
+		return StorageContextUtility.findOrCreateMapEntry(this.mSubContexts, prefix, generator);
 	}
 
 	public getKeyValuePair(key: string): StorageContextKeyValuePair {
-		return findOrCreateMapEntry(this.mKeyValuePairs, key, () => new StorageContextKeyValuePair(this, key));
+		const generator = () => new StorageContextKeyValuePair(this, key);
+		return StorageContextUtility.findOrCreateMapEntry(this.mKeyValuePairs, key, generator);
 	}
 
 	public createEntity<V>(key: string, options?: StorageContextEntityOptions<V>): StorageContextEntity<V> {
@@ -84,7 +84,7 @@ export class StorageContext implements StorageTransportApiMask {
 	}
 
 	private createCombinedKey(parts: string[]): string {
-		return toArray(parts)
+		return Array.from(parts)
 			.filter(v => v)
 			.join(StorageContext.absolutePrefixSeparator);
 	}

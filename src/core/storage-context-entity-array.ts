@@ -1,8 +1,5 @@
 import { StorageContextEntity } from './storage-context-entity';
 import { StorageContextEntityMap } from './storage-context-entity-map';
-import { StorageContextUtility } from './storage-context-utility';
-
-const { toArray } = StorageContextUtility;
 
 /**
  * Represents a serialized array of items of type V.
@@ -39,7 +36,7 @@ export class StorageContextEntityArray<V> {
 	}
 
 	public async save(values: V[]): Promise<V[]> {
-		const safeValues: V[] = toArray(values);
+		const safeValues: V[] = Array.from(values);
 		const size = safeValues.length;
 		await this.sizeEntity.save(size);
 		await Promise.all(safeValues.map((value: V, index: number) => this.get(index).save(value)));

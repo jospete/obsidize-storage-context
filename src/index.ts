@@ -1,3 +1,4 @@
+// core
 export { SerializationDuplex, getJSONSerializationDuplex } from './core/serialization-duplex';
 export { StorageContextEntityArray } from './core/storage-context-entity-array';
 export { StorageContextEntityMap } from './core/storage-context-entity-map';
@@ -9,6 +10,7 @@ export { StorageContextUtility } from './core/storage-context-utility';
 export { StorageContext } from './core/storage-context';
 export { StorageTransportApiMask } from './core/storage-transport-api-mask';
 
+// transports
 export { BrowserStorageTransport } from './transports/browser-storage-transport';
 export { NativeStorageLike, NativeStorageTransport } from './transports/native-storage-transport';
 export { MockBrowserStorage } from './transports/mock-browser-storage';

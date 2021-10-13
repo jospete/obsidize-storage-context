@@ -16,11 +16,7 @@ export namespace StorageContextUtility {
 	}
 
 	export function optFalsyValue<T>(value: T, fallback: T): T {
-		return isUndefined(value) || isNull(value) ? fallback : value;
-	}
-
-	export function toArray<V>(value: any): V[] {
-		return [].slice.call(value) as V[];
+		return (isUndefined(value) || isNull(value)) ? fallback : value;
 	}
 
 	export function bombShield<T>(action: () => T, fallbackValue?: T): T {
@@ -33,7 +29,11 @@ export namespace StorageContextUtility {
 		}
 	}
 
-	export function findOrCreateMapEntry<K, V>(map: Map<K, V>, key: K, create: (key: K, map: Map<K, V>) => V): V {
+	export function findOrCreateMapEntry<K, V>(
+		map: Map<K, V>,
+		key: K,
+		create: (key: K, map: Map<K, V>) => V
+	): V {
 
 		let entry = map.get(key);
 
