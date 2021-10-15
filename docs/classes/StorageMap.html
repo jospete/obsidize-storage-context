@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>MockBrowserStorage | @obsidize/storage-context</title>
+	<title>StorageMap | @obsidize/storage-context</title>
 	<meta name="description" content="Documentation for @obsidize/storage-context">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -55,10 +55,10 @@
 					<a href="../modules.html">@obsidize/storage-context</a>
 				</li>
 				<li>
-					<a href="MockBrowserStorage.html">MockBrowserStorage</a>
+					<a href="StorageMap.html">StorageMap</a>
 				</li>
 			</ul>
-			<h1>Class MockBrowserStorage</h1>
+			<h1>Class StorageMap</h1>
 		</div>
 	</div>
 </header>
@@ -68,7 +68,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Utility for faking localstorage objects as needed.</p>
+						<p>Simple in-memory storage context that
+						can be used as a fake Storage reference.</p>
 					</div>
 				</div>
 			</section>
@@ -76,7 +77,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">MockBrowserStorage</span>
+						<span class="target">StorageMap</span>
 					</li>
 				</ul>
 			</section>
@@ -97,31 +98,31 @@
 						<section class="tsd-index-section ">
 							<h3>Constructors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="MockBrowserStorage.html#constructor" class="tsd-kind-icon">constructor</a></li>
+								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="StorageMap.html#constructor" class="tsd-kind-icon">constructor</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="MockBrowserStorage.html#content" class="tsd-kind-icon">content</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="StorageMap.html#content" class="tsd-kind-icon">content</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Accessors</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="MockBrowserStorage.html#length" class="tsd-kind-icon">length</a></li>
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="StorageMap.html#length" class="tsd-kind-icon">length</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#clear" class="tsd-kind-icon">clear</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#getItem" class="tsd-kind-icon">get<wbr>Item</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#key" class="tsd-kind-icon">key</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#keys" class="tsd-kind-icon">keys</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#removeItem" class="tsd-kind-icon">remove<wbr>Item</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#setItem" class="tsd-kind-icon">set<wbr>Item</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="MockBrowserStorage.html#toJSON" class="tsd-kind-icon">toJSON</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#clear" class="tsd-kind-icon">clear</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#getItem" class="tsd-kind-icon">get<wbr>Item</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#key" class="tsd-kind-icon">key</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#keys" class="tsd-kind-icon">keys</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#removeItem" class="tsd-kind-icon">remove<wbr>Item</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#setItem" class="tsd-kind-icon">set<wbr>Item</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="StorageMap.html#toJSON" class="tsd-kind-icon">toJSON</a></li>
 							</ul>
 						</section>
 					</div>
@@ -133,13 +134,13 @@
 					<a name="constructor" class="tsd-anchor"></a>
 					<h3>constructor</h3>
 					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Mock<wbr>Browser<wbr>Storage<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="MockBrowserStorage.html" class="tsd-signature-type" data-tsd-kind="Class">MockBrowserStorage</a></li>
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Storage<wbr>Map<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="StorageMap.html" class="tsd-signature-type" data-tsd-kind="Class">StorageMap</a></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 							</aside>
-							<h4 class="tsd-returns-title">Returns <a href="MockBrowserStorage.html" class="tsd-signature-type" data-tsd-kind="Class">MockBrowserStorage</a></h4>
+							<h4 class="tsd-returns-title">Returns <a href="StorageMap.html" class="tsd-signature-type" data-tsd-kind="Class">StorageMap</a></h4>
 						</li>
 					</ul>
 				</section>
@@ -152,7 +153,7 @@
 					<div class="tsd-signature tsd-kind-icon">content<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> = ...</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L11">transports/mock-browser-storage.ts:11</a></li>
+							<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L12">transports/storage-map.ts:12</a></li>
 						</ul>
 					</aside>
 				</section>
@@ -169,7 +170,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L14">transports/mock-browser-storage.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L15">transports/storage-map.ts:15</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
@@ -190,7 +191,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Storage.clear</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L36">transports/mock-browser-storage.ts:36</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L37">transports/storage-map.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -208,7 +209,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Storage.getItem</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L22">transports/mock-browser-storage.ts:22</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L23">transports/storage-map.ts:23</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -232,7 +233,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Storage.key</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L18">transports/mock-browser-storage.ts:18</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L19">transports/storage-map.ts:19</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -255,7 +256,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L41">transports/mock-browser-storage.ts:41</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L42">transports/storage-map.ts:42</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h4>
@@ -273,7 +274,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Storage.removeItem</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L31">transports/mock-browser-storage.ts:31</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L32">transports/storage-map.ts:32</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -297,7 +298,7 @@
 							<aside class="tsd-sources">
 								<p>Implementation of Storage.setItem</p>
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L26">transports/mock-browser-storage.ts:26</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L27">transports/storage-map.ts:27</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -323,7 +324,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/transports/mock-browser-storage.ts#L53">transports/mock-browser-storage.ts:53</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/transports/storage-map.ts#L54">transports/storage-map.ts:54</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{}</span></h4>
@@ -350,45 +351,6 @@
 					<li class=" tsd-kind-class">
 						<a href="BrowserStorageTransport.html" class="tsd-kind-icon">Browser<wbr>Storage<wbr>Transport</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class">
-						<a href="MockBrowserStorage.html" class="tsd-kind-icon">Mock<wbr>Browser<wbr>Storage</a>
-						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#constructor" class="tsd-kind-icon">constructor</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#content" class="tsd-kind-icon">content</a>
-							</li>
-							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#length" class="tsd-kind-icon">length</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#clear" class="tsd-kind-icon">clear</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#getItem" class="tsd-kind-icon">get<wbr>Item</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#key" class="tsd-kind-icon">key</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#keys" class="tsd-kind-icon">keys</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#removeItem" class="tsd-kind-icon">remove<wbr>Item</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#setItem" class="tsd-kind-icon">set<wbr>Item</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="MockBrowserStorage.html#toJSON" class="tsd-kind-icon">toJSON</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class">
 						<a href="MockNativeStorage.html" class="tsd-kind-icon">Mock<wbr>Native<wbr>Storage</a>
 					</li>
@@ -413,6 +375,45 @@
 					<li class=" tsd-kind-class">
 						<a href="StorageContextKeyValuePair.html" class="tsd-kind-icon">Storage<wbr>Context<wbr>Key<wbr>Value<wbr>Pair</a>
 					</li>
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class">
+						<a href="StorageMap.html" class="tsd-kind-icon">Storage<wbr>Map</a>
+						<ul>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class">
+								<a href="StorageMap.html#constructor" class="tsd-kind-icon">constructor</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="StorageMap.html#content" class="tsd-kind-icon">content</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="StorageMap.html#length" class="tsd-kind-icon">length</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#clear" class="tsd-kind-icon">clear</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#getItem" class="tsd-kind-icon">get<wbr>Item</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#key" class="tsd-kind-icon">key</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#keys" class="tsd-kind-icon">keys</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#removeItem" class="tsd-kind-icon">remove<wbr>Item</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#setItem" class="tsd-kind-icon">set<wbr>Item</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="StorageMap.html#toJSON" class="tsd-kind-icon">toJSON</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-interface">
 						<a href="../interfaces/NativeStorageLike.html" class="tsd-kind-icon">Native<wbr>Storage<wbr>Like</a>
 					</li>
@@ -453,13 +454,12 @@
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>

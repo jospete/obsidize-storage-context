@@ -71,7 +71,6 @@
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class"><a href="classes/BrowserStorageTransport.html" class="tsd-kind-icon">Browser<wbr>Storage<wbr>Transport</a></li>
-								<li class="tsd-kind-class"><a href="classes/MockBrowserStorage.html" class="tsd-kind-icon">Mock<wbr>Browser<wbr>Storage</a></li>
 								<li class="tsd-kind-class"><a href="classes/MockNativeStorage.html" class="tsd-kind-icon">Mock<wbr>Native<wbr>Storage</a></li>
 								<li class="tsd-kind-class"><a href="classes/NativeStorageTransport.html" class="tsd-kind-icon">Native<wbr>Storage<wbr>Transport</a></li>
 								<li class="tsd-kind-class"><a href="classes/ProxyStorageTransport.html" class="tsd-kind-icon">Proxy<wbr>Storage<wbr>Transport</a></li>
@@ -80,6 +79,7 @@
 								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/StorageContextEntityArray.html" class="tsd-kind-icon">Storage<wbr>Context<wbr>Entity<wbr>Array</a></li>
 								<li class="tsd-kind-class tsd-has-type-parameter"><a href="classes/StorageContextEntityMap.html" class="tsd-kind-icon">Storage<wbr>Context<wbr>Entity<wbr>Map</a></li>
 								<li class="tsd-kind-class"><a href="classes/StorageContextKeyValuePair.html" class="tsd-kind-icon">Storage<wbr>Context<wbr>Key<wbr>Value<wbr>Pair</a></li>
+								<li class="tsd-kind-class"><a href="classes/StorageMap.html" class="tsd-kind-icon">Storage<wbr>Map</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -115,7 +115,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/core/storage-context-entity-options.ts#L13">core/storage-context-entity-options.ts:13</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/core/storage-context-entity-options.ts#L13">core/storage-context-entity-options.ts:13</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -143,7 +143,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/core/storage-context-options.ts#L8">core/storage-context-options.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/core/storage-context-options.ts#L8">core/storage-context-options.ts:8</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <a href="interfaces/StorageContextOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">StorageContextOptions</a></h4>
@@ -160,7 +160,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/2e76875/src/core/serialization-duplex.ts#L14">core/serialization-duplex.ts:14</a></li>
+									<li>Defined in <a href="https://github.com/jospete/obsidize-storage-context/blob/d77567b/src/core/serialization-duplex.ts#L14">core/serialization-duplex.ts:14</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -197,9 +197,6 @@
 						<a href="classes/BrowserStorageTransport.html" class="tsd-kind-icon">Browser<wbr>Storage<wbr>Transport</a>
 					</li>
 					<li class=" tsd-kind-class">
-						<a href="classes/MockBrowserStorage.html" class="tsd-kind-icon">Mock<wbr>Browser<wbr>Storage</a>
-					</li>
-					<li class=" tsd-kind-class">
 						<a href="classes/MockNativeStorage.html" class="tsd-kind-icon">Mock<wbr>Native<wbr>Storage</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -222,6 +219,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/StorageContextKeyValuePair.html" class="tsd-kind-icon">Storage<wbr>Context<wbr>Key<wbr>Value<wbr>Pair</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/StorageMap.html" class="tsd-kind-icon">Storage<wbr>Map</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/NativeStorageLike.html" class="tsd-kind-icon">Native<wbr>Storage<wbr>Like</a>
@@ -263,13 +263,12 @@
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-			</ul>
-			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
