@@ -19,7 +19,7 @@ If you just need to save 3 string values to localStorage, you probably don't nee
 npm install --save @obsidize/storage-context
 ```
 
-- git:
+- tarball:
 
 ```bash
 npm install --save git+https://github.com/jospete/obsidize-storage-context.git
