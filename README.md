@@ -22,7 +22,7 @@ npm install --save @obsidize/storage-context
 - tarball:
 
 ```bash
-npm install --save git+https://github.com/jospete/obsidize-storage-context.git
+npm install --save https://github.com/jospete/obsidize-storage-context/raw/master/packed/obsidize-storage-context.tgz
 ```
 
 ## Usage
