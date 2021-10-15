@@ -2,9 +2,10 @@ import { StorageContextUtility } from '../core/storage-context-utility';
 const { optDefined } = StorageContextUtility;
 
 /**
- * Utility for faking localstorage objects as needed.
+ * Simple in-memory storage context that 
+ * can be used as a fake Storage reference.
  */
-export class MockBrowserStorage implements Storage {
+export class StorageMap implements Storage {
 
 	[name: string]: any;
 

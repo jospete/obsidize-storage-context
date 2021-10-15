@@ -1,11 +1,11 @@
-import { BrowserStorageTransport, MockBrowserStorage, ProxyStorageTransport } from '../../src';
+import { BrowserStorageTransport, StorageMap, ProxyStorageTransport } from '../../src';
 
 describe('ProxyStorageTransport', () => {
 
 	const createDefaults = () => {
 
-		const mockLocalTransportA = new BrowserStorageTransport(new MockBrowserStorage());
-		const mockLocalTransportB = new BrowserStorageTransport(new MockBrowserStorage());
+		const mockLocalTransportA = new BrowserStorageTransport(new StorageMap());
+		const mockLocalTransportB = new BrowserStorageTransport(new StorageMap());
 
 		const proxyTransport = new ProxyStorageTransport([
 			mockLocalTransportA,

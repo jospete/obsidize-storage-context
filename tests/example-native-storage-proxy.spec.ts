@@ -1,11 +1,11 @@
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 
-import { BrowserStorageTransport, NativeStorageTransport, MockBrowserStorage, MockNativeStorage, ProxyStorageTransport, StorageContext } from '../src';
+import { BrowserStorageTransport, NativeStorageTransport, StorageMap, MockNativeStorage, ProxyStorageTransport, StorageContext } from '../src';
 
 const createDefaults = () => {
 
-	const mockBrowserTransport = new BrowserStorageTransport(new MockBrowserStorage());
-	const mockNativeTransport = new NativeStorageTransport(new MockNativeStorage(new MockBrowserStorage()));
+	const mockBrowserTransport = new BrowserStorageTransport(new StorageMap());
+	const mockNativeTransport = new NativeStorageTransport(new MockNativeStorage());
 
 	const proxyTransport = new ProxyStorageTransport([
 		mockBrowserTransport,

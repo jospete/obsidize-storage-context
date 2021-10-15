@@ -1,4 +1,4 @@
-import { StorageContext, BrowserStorageTransport, MockBrowserStorage } from '../src';
+import { StorageContext, BrowserStorageTransport, StorageMap } from '../src';
 
 describe('Example Usage', () => {
 
@@ -9,7 +9,7 @@ describe('Example Usage', () => {
 		// Note that while we are using localStorage for an example here, 
 		// you could just as easily create your own transport via:
 		// ```implements StorageTransportApiMask``` 
-		const mockLocalStorage = new MockBrowserStorage();
+		const mockLocalStorage = new StorageMap();
 		const localStoragecontext = new StorageContext(new BrowserStorageTransport(mockLocalStorage));
 
 

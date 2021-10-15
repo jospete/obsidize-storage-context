@@ -13,6 +13,6 @@ export { StorageTransportApiMask } from './core/storage-transport-api-mask';
 // transports
 export { BrowserStorageTransport } from './transports/browser-storage-transport';
 export { NativeStorageLike, NativeStorageTransport } from './transports/native-storage-transport';
-export { MockBrowserStorage } from './transports/mock-browser-storage';
+export { StorageMap } from './transports/storage-map';
 export { MockNativeStorage } from './transports/mock-native-storage';
 export { ProxyStorageTransport } from './transports/proxy-storage-transport';
